@@ -1,0 +1,3 @@
+# Only examples. Set both values privately in Cloudflare or a local .dev.vars.
+OWNER_PASSWORD=replace-with-your-own-password
+SESSION_SECRET=replace-with-a-random-string-at-least-32-characters
