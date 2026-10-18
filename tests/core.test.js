@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {progress,weekNumber,level,escapeHtml,safeURL,calendarText} from '../assets/core.js';
+import {progress,weekNumber,weekDate,learningStatus,level,escapeHtml,safeURL,calendarText} from '../assets/core.js';
 import {pendingReminder} from '../scripts/remind.js';
 const content=JSON.parse(readFileSync(new URL('../data/roadmap.json',import.meta.url)));
 test('progress: empty, partial, complete and unrelated completions',()=>{
@@ -15,6 +15,28 @@ test('week calculation handles boundaries, future dates and end of roadmap',()=>
   assert.equal(weekNumber('2026-10-19','2026-10-25'),1);
   assert.equal(weekNumber('2026-10-19','2026-10-26'),2);
   assert.equal(weekNumber('2026-10-19','2030-01-01'),52);
+});
+test('confirmed start is Monday October 19; first week, future state and reminders agree',()=>{
+  const start=content.metadata.startDate;
+  assert.equal(start,'2026-10-19');
+  assert.equal(weekDate(start,1).getDay(),1);
+  assert.equal(weekDate(start,1,6).getDate(),25);
+  assert.deepEqual(learningStatus(start,'2026-10-18'),{phase:'upcoming',daysUntil:1,week:1});
+  assert.deepEqual(learningStatus(start,'2026-10-19'),{phase:'active',daysUntil:0,week:1});
+  assert.equal(learningStatus(start,'2026-10-26').week,2);
+  assert.equal(learningStatus(start,'2027-10-18').phase,'finished');
+  const reminders=JSON.parse(readFileSync(new URL('../data/reminders.json',import.meta.url)));
+  assert.equal(reminders.startDate,start);
+});
+test('beginner instructions cover every first-week task and use independent preparation IDs',()=>{
+  const guide=JSON.parse(readFileSync(new URL('../data/guide.json',import.meta.url)));
+  assert.deepEqual(guide.firstWeek.map(t=>t.kind).sort(),content.weeks[0].tasks.map(t=>t.kind).sort());
+  assert.equal(guide.preparation.length,5);
+  assert.equal(new Set(guide.preparation.map(t=>t.id)).size,5);
+  assert.ok(guide.preparation.every(t=>!content.weeks.flatMap(w=>w.tasks).some(task=>task.id===t.id)));
+  assert.match(guide.commands,/dotnet new console/);
+  assert.ok(guide.glossary.length>=10);
+  assert.match(readFileSync(new URL('../data/beginner-guide.md',import.meta.url),'utf8'),/19 октября 2026/);
 });
 test('all 52 weeks have unique tasks, valid phases and several actual YouTube links',()=>{
   assert.equal(content.weeks.length,52);

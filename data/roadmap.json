@@ -6,7 +6,9 @@
     "created": "2026-10-16",
     "durationMonths": 12,
     "weeklyTargetHours": 5.5,
-    "audience": "Junior-разработчик, цель - уверенный самостоятельный backend engineer и практик AI agents"
+    "audience": "Junior-разработчик, цель - уверенный самостоятельный backend engineer и практик AI agents",
+    "startDate": "2026-10-19",
+    "planStartVersion": "start-2026-10-19-v1"
   },
   "principles": [
     "Практика важнее количества просмотренных видео",

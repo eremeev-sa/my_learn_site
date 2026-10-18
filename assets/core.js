@@ -10,6 +10,10 @@ export function weekNumber(start, today = dateOnly()) {
   const diff = (Date.parse(today+'T12:00:00Z') - Date.parse(start+'T12:00:00Z')) / 86400000;
   return Math.min(52, Math.max(1, Math.floor(diff / 7) + 1));
 }
+export function learningStatus(start, today = dateOnly()) {
+  const days = Math.round((Date.parse(today+'T12:00:00Z')-Date.parse(start+'T12:00:00Z'))/86400000);
+  return { phase: days < 0 ? 'upcoming' : days >= 364 ? 'finished' : 'active', daysUntil: Math.max(0,-days), week: weekNumber(start,today) };
+}
 export function level(percent) {
   return percent >= 100 ? 'Маршрут пройден' : percent >= 75 ? 'Самостоятельный инженер' : percent >= 50 ? 'Создатель решений' : percent >= 25 ? 'Уверенный практик' : 'Исследователь';
 }

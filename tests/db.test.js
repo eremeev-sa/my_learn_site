@@ -30,3 +30,23 @@ test('import copies records without retaining imported triggers',async()=>{
   const incoming=new SQL.Database(seed);incoming.run("CREATE TRIGGER injected AFTER INSERT ON progress BEGIN DELETE FROM notes; END;");
   await store.import(incoming.export());assert.equal(store.db.exec("SELECT name FROM sqlite_master WHERE type='trigger'").length,0);
 });
+test('start-date migration updates an old browser database without erasing progress or notes',async()=>{
+  let saved;
+  const store=new Store(SQL,async bytes=>{saved=bytes;});store.load(seed);
+  await store.set('startDate','2026-10-12');await store.set('selectedWeek',8);
+  await store.toggle('w1-core',true);await store.saveNote('week-1','Мои первые заметки');await store.set('favorites',['cs-ru']);
+  assert.equal(await store.applyPlanStart('2026-10-19','start-2026-10-19-v1'),true);
+  const reopened=new Store(SQL,async()=>{});reopened.load(saved);
+  assert.equal(reopened.get('startDate'),'2026-10-19');assert.equal(reopened.get('selectedWeek'),1);
+  assert.ok(reopened.completed().has('w1-core'));assert.equal(reopened.note('week-1'),'Мои первые заметки');assert.deepEqual(reopened.get('favorites'),['cs-ru']);
+  // Once migrated, an intentional settings edit survives subsequent visits.
+  await reopened.set('startDate','2026-11-02');await reopened.set('selectedWeek',4);
+  assert.equal(await reopened.applyPlanStart('2026-10-19','start-2026-10-19-v1'),false);
+  assert.equal(reopened.get('startDate'),'2026-11-02');assert.equal(reopened.get('selectedWeek'),4);
+});
+test('start-date migration rolls back all settings if persistent storage fails',async()=>{
+  const store=new Store(SQL,async()=>{});store.load(seed);await store.set('startDate','2026-10-12');await store.set('selectedWeek',3);
+  store.persist=async()=>{throw new Error('quota');};
+  await assert.rejects(store.applyPlanStart('2026-10-19','start-2026-10-19-v1'),/quota/);
+  assert.equal(store.get('startDate'),'2026-10-12');assert.equal(store.get('selectedWeek'),3);assert.equal(store.get('planStartVersion',null),null);
+});

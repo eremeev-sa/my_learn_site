@@ -3,6 +3,8 @@ function validateSetting(key,value){
     startDate:v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&v>='2020-01-01'&&v<='2100-12-31'&&!isNaN(Date.parse(v))&&new Date(v+'T12:00:00Z').toISOString().startsWith(v),
     selectedWeek:v=>Number.isInteger(v)&&v>=1&&v<=52,
     theme:v=>['light','dark'].includes(v),
+    planStartVersion:v=>typeof v==='string'&&v.length<=100,
+    onboardingDone:v=>typeof v==='boolean',
     weeklyHours:v=>typeof v==='number'&&Number.isFinite(v)&&v>=1&&v<=40,
     favorites:v=>Array.isArray(v)&&v.length<=1000&&v.every(id=>typeof id==='string'&&id.length<100),
     schedule:v=>Array.isArray(v)&&v.length===7&&v.every(s=>s&&['day','time','activity','kind'].every(k=>typeof s[k]==='string'&&s[k].length<=1000)&&(!/^\d/.test(s.time)||/^([01]\d|2[0-3]):[0-5]\d-([01]\d|2[0-3]):[0-5]\d$/.test(s.time)&&s.time.slice(0,5)<s.time.slice(6)))
@@ -33,6 +35,15 @@ export class Store {
     this.queue=operation.catch(()=>{}); return operation;
   }
   set(key,value) { validateSetting(key,value);return this.mutate(()=>this.db.run('INSERT OR REPLACE INTO settings VALUES (?,?)',[key,JSON.stringify(value)])); }
+  applyPlanStart(date,version) {
+    validateSetting('startDate',date);validateSetting('planStartVersion',version);
+    if(this.get('planStartVersion',null)===version)return Promise.resolve(false);
+    return this.mutate(()=>{
+      this.db.run('BEGIN');
+      for(const [key,value] of [['startDate',date],['selectedWeek',1],['planStartVersion',version]])this.db.run('INSERT OR REPLACE INTO settings VALUES (?,?)',[key,JSON.stringify(value)]);
+      this.db.run('COMMIT');
+    }).then(()=>true);
+  }
   toggle(id, done) { return this.mutate(()=>done ? this.db.run('INSERT OR REPLACE INTO progress VALUES (?,?)',[id,new Date().toISOString()]) : this.db.run('DELETE FROM progress WHERE id = ?',[id])); }
   saveNote(id,body) { return this.mutate(()=>this.db.run('INSERT OR REPLACE INTO notes VALUES (?,?,?)',[id,body,new Date().toISOString()])); }
   async import(bytes) {
