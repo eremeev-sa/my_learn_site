@@ -1,4 +1,10 @@
 dist/
 node_modules/
 *.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+runtime/
+.env
+.env.*
+!.env.example
 .DS_Store

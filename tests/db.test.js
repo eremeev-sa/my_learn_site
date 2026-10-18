@@ -50,15 +50,12 @@ test('start-date migration rolls back all settings if persistent storage fails',
   await assert.rejects(store.applyPlanStart('2026-10-19','start-2026-10-19-v1'),/quota/);
   assert.equal(store.get('startDate'),'2026-10-12');assert.equal(store.get('selectedWeek'),3);assert.equal(store.get('planStartVersion',null),null);
 });
-test('users migration keeps old progress and imported backups cannot replace the local account',async()=>{
-  const account={username:'test-user',salt:'00112233445566778899aabbccddeeff',password_hash:'a'.repeat(64),iterations:100000,revision:1};
-  const old=new SQL.Database(new Uint8Array(seed));old.run('DROP TABLE users');
-  old.run("INSERT INTO progress VALUES ('w1-core','2026-10-18T00:00:00Z'); INSERT INTO notes VALUES ('week-1','existing note','2026-10-18T00:00:00Z');");
-  const store=new Store(SQL,async()=>{});store.load(old.export());old.close();
-  await store.ensureUser(account);
-  assert.deepEqual(store.user('test-user'),account);assert.equal(store.user('unknown'),null);
-  assert.ok(store.completed().has('w1-core'));assert.equal(store.note('week-1'),'existing note');
-  const incoming=new SQL.Database(new Uint8Array(seed));incoming.run('DELETE FROM users');
-  incoming.run('INSERT INTO users VALUES (?,?,?,?,?)',['test-user',account.salt,'b'.repeat(64),account.iterations,2]);
-  await store.import(incoming.export());incoming.close();assert.deepEqual(store.user('test-user'),account);
+test('legacy backup imports learning data only and cannot install an account',async()=>{
+  const store=new Store(SQL,async()=>{});store.load(seed);store.db.run('DROP TABLE users');
+  const incoming=new SQL.Database(new Uint8Array(seed));
+  incoming.run('INSERT INTO users VALUES (?,?,?,?,?)',['other-user','0'.repeat(32),'a'.repeat(64),100000,1]);
+  incoming.run("INSERT INTO progress VALUES ('w1-core','2026-10-18T00:00:00Z')");
+  await store.import(incoming.export());incoming.close();
+  assert.ok(store.completed().has('w1-core'));
+  assert.equal(store.db.exec("SELECT name FROM sqlite_master WHERE name='users'").length,0);
 });

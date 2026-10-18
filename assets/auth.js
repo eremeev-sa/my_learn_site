@@ -1,35 +1,33 @@
-// Browser-local interface lock. This is not a server access-control boundary.
-export const SESSION_KEY = 'dev-growth-local-session';
-export const SESSION_DURATION = 12 * 60 * 60 * 1000;
+// Session cookies are issued and verified by the server, never by browser storage.
+export async function api(path,options={}) {
+  const response=await fetch(path,{credentials:'same-origin',cache:'no-store',...options,headers:{...(options.body?{'Content-Type':'application/json'}:{}),...options.headers}});
+  const result=await response.json();
+  if(response.status===401){location.replace('/login');throw new Error('Войди снова');}
+  if(!response.ok)throw new Error(result.error||'Не удалось связаться с сервером');
+  return result;
+}
 
-function decodeHex(hex) {
-  if (typeof hex !== 'string' || !/^[a-f0-9]+$/i.test(hex) || hex.length % 2) throw new Error('Некорректная запись пользователя');
-  return Uint8Array.from(hex.match(/.{2}/g), value => parseInt(value, 16));
-}
-export async function passwordHash(password, salt, iterations) {
-  if (!globalThis.crypto?.subtle) throw new Error('Для входа открой сайт по HTTPS или через localhost');
-  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveBits']);
-  const bytes = await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt:decodeHex(salt),iterations}, key, 256);
-  return Array.from(new Uint8Array(bytes), value => value.toString(16).padStart(2,'0')).join('');
-}
-export async function verifyPassword(password, account) {
-  const actual = await passwordHash(password, account.salt, account.iterations);
-  let difference = actual.length ^ account.password_hash.length;
-  for (let i=0;i<actual.length;i++) difference |= actual.charCodeAt(i) ^ account.password_hash.charCodeAt(i);
-  return difference === 0;
-}
-export async function createAccount(username,password) {
-  if(!username || username.length>100 || password.length<8 || password.length>200)throw new Error('Укажи логин и пароль от 8 до 200 символов');
-  const salt=Array.from(crypto.getRandomValues(new Uint8Array(16)),v=>v.toString(16).padStart(2,'0')).join('');
-  const iterations=600000;
-  return {username,salt,password_hash:await passwordHash(password,salt,iterations),iterations,revision:1};
-}
-export function createSession(account, now = Date.now()) {
-  return {username:account.username,revision:account.revision,expiresAt:now+SESSION_DURATION};
-}
-export function validSession(value, account, now = Date.now()) {
-  try {
-    const session = typeof value === 'string' ? JSON.parse(value) : value;
-    return Boolean(session && account && session.username===account.username && session.revision===account.revision && Number.isFinite(session.expiresAt) && session.expiresAt>now && session.expiresAt<=now+SESSION_DURATION);
-  } catch { return false; }
+export async function serverStorage(SQL) {
+  let revision;
+  const stateOf=db=>Object.fromEntries(['progress','notes','settings'].map(table=>[table,db.exec('SELECT * FROM '+table)[0]?.values||[]]));
+  return {
+    async read(){
+      const result=await api('/api/state');revision=result.revision;
+      const response=await fetch('/data/progress.sqlite',{cache:'no-store'});
+      if(!response.ok)throw new Error('Не удалось открыть SQLite');
+      const db=new SQL.Database(new Uint8Array(await response.arrayBuffer()));
+      try{
+        db.run('DELETE FROM progress; DELETE FROM notes; DELETE FROM settings; DROP TABLE IF EXISTS users;');
+        for(const table of ['progress','notes','settings'])for(const row of result.state[table])db.run(`INSERT INTO ${table} VALUES(${table==='notes'?'?,?,?':'?,?'})`,row);
+        return db.export();
+      }finally{db.close();}
+    },
+    async write(bytes){
+      const db=new SQL.Database(new Uint8Array(bytes));
+      try{
+        const result=await api('/api/state',{method:'PUT',body:JSON.stringify({revision,state:stateOf(db)})});
+        revision=result.revision;
+      }finally{db.close();}
+    }
+  };
 }

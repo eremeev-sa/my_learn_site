@@ -25,5 +25,6 @@ jobs:
       - run: node scripts/remind.js
         env:
           MAX_BOT_TOKEN: ${{ secrets.MAX_BOT_TOKEN }}
+          LEARNING_SITE_URL: ${{ vars.LEARNING_SITE_URL }}
           MAX_CHAT_ID: ${{ secrets.MAX_CHAT_ID }}
           REMINDER_MANUAL: ${{ github.event_name == 'workflow_dispatch' }}
