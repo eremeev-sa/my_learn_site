@@ -1,0 +1,29 @@
+name: MAX learning reminders
+on:
+  schedule:
+    # UTC. These correspond to 21:50 Mon/Thu, 15:50 Sat, 16:50 Sun in Moscow.
+    # If you edit the schedule or timezone in reminders.json, also edit these cron entries.
+    - cron: '50 18 * * 1,4'
+    - cron: '50 12 * * 6'
+    - cron: '50 13 * * 0'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: max-reminders
+  cancel-in-progress: false
+jobs:
+  remind:
+    if: vars.MAX_REMINDERS_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/remind.js
+        env:
+          MAX_BOT_TOKEN: ${{ secrets.MAX_BOT_TOKEN }}
+          MAX_CHAT_ID: ${{ secrets.MAX_CHAT_ID }}
+          REMINDER_MANUAL: ${{ github.event_name == 'workflow_dispatch' }}
