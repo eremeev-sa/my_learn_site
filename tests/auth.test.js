@@ -38,7 +38,7 @@ test('missing secrets and example values fail closed; assets always pass through
 });
 test('anonymous visitors see login only, including direct index and alternate HTML routes',async t=>{
   const {request}=await fixture(t);
-  for(const path of ['/','/index.html','/login.html','/assets/app.js','/assets/auth.js','/data/roadmap.json','/data/progress.sqlite','/runtime/private.sqlite','/data/beginner-guide.md']) {
+  for(const path of ['/','/index.html','/login.html','/assets/app.js','/assets/auth.js','/data/roadmap.json','/data/progress.sqlite','/runtime/private.sqlite','/data/beginner-guide.md','/data/lessons.json','/data/lessons/week-01.pdf','/data/lessons/week-52.pdf']) {
     const response=await request(path);assert.equal(response.status,303,path);assert.equal(response.headers.get('location'),'/login');
   }
   for(const path of ['/api/state','/api/session','/api/register'])assert.equal((await request(path)).status,401);
@@ -58,6 +58,11 @@ test('password verification, CSRF, cookie flags, source restrictions and server-
   assert.deepEqual(await response.json(),{username:USER});
   assert.equal((await request('/',{cookie})).status,200);
   assert.equal((await request('/data/roadmap.json',{cookie})).status,200);
+  const pdf=await request('/data/lessons/week-01.pdf',{cookie});
+  assert.equal(pdf.status,200);assert.match(pdf.headers.get('content-type'),/application\/pdf/);
+  assert.match(pdf.headers.get('cache-control'),/no-store/);
+  assert.equal(new TextDecoder().decode((await pdf.arrayBuffer()).slice(0,5)),'%PDF-');
+  assert.equal((await request('/data/lessons/week-00.pdf',{cookie})).status,404);
   for(const path of ['/.dev.vars','/server/worker.js','/migrations/0001_private_profile.sql','/README.md','/.git/config','/wrangler.jsonc','/api/register','/assets/%2e%2e%2fserver/worker.js'])assert.equal((await request(path,{cookie})).status,404,path);
   assert.equal((await request('/api/state',{method:'PUT',cookie,origin:'https://attacker.example',body:{}})).status,403);
   assert.match((await request('/api/state',{cookie})).headers.get('cache-control'),/no-store/);

@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "dev-growth",
+  "name": "my-learn-site",
   "main": "server/worker.js",
   "compatibility_date": "2026-07-30",
   "workers_dev": true,
@@ -12,7 +12,9 @@
     "html_handling": "none",
     "not_found_handling": "none"
   },
-  "vars": { "OWNER_USERNAME": "Eremeev-SA" },
+  "vars": {
+    "OWNER_USERNAME": "Eremeev-SA"
+  },
   "d1_databases": [
     {
       "binding": "DB",

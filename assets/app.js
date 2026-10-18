@@ -1,11 +1,12 @@
-import {api,serverStorage} from './auth.js?v=4';
-import {icon} from './icons.js?v=4';
-import {Store} from './db.js?v=4';
-import {progress,dateOnly,weekNumber,weekDate,learningStatus,level,escapeHtml as e,safeURL,calendarText} from './core.js?v=4';
+import {renderDayWeek} from './day-view.js?v=5';
+import {api,serverStorage} from './auth.js?v=5';
+import {icon} from './icons.js?v=5';
+import {Store} from './db.js?v=5';
+import {progress,dateOnly,weekNumber,weekDate,learningStatus,level,escapeHtml as e,safeURL,calendarText} from './core.js?v=5';
 
 const $=s=>document.querySelector(s);
-const names={today:'Моя неделя',roadmap:'Дорожная карта',resources:'Библиотека',project:'Мой проект',schedule:'Расписание',settings:'Настройки и данные',guide:'С чего начать'};
-let content,guideContent,store,selectedWeek=1,search='',track='all',status='all',toastTimer,account;
+const names={today:'Учёба по дням',roadmap:'Дорожная карта',resources:'Библиотека',project:'Мой проект',schedule:'Расписание',settings:'Настройки и данные',guide:'С чего начать'};
+let content,guideContent,lessonContent,store,selectedWeek=1,search='',track='all',status='all',toastTimer,account;
 const allTasks=()=>content.weeks.flatMap(w=>w.tasks);
 const currentWeek=()=>content.weeks[selectedWeek-1];
 const startDate=()=>store.get('startDate',defaultStart());
@@ -35,16 +36,10 @@ function heroArtwork(){return `<div class="hero-art" aria-hidden="true"><div cla
 function onboarding(){if(store.get('onboardingDone',false))return '';return `<section class="onboarding-banner"><div class="onboarding-icon">${icon('spark')}</div><div><h3>Первый раз здесь? Начни с понятного плана.</h3><p>Подготовь инструменты, разберись с заданиями и сделай первый шаг в C#.</p></div><a href="#guide" class="button secondary">С чего начать ${icon('arrow')}</a><button class="dismiss-button" id="dismiss-onboarding" aria-label="Скрыть подсказку">×</button></section>`;}
 function firstWeekHelp(task){const entry=guideContent.firstWeek.find(x=>x.kind===task.kind);if(selectedWeek!==1||!entry)return '';return `<details class="task-help"><summary>Как выполнить это задание ${icon('chevron')}</summary><p>${e(entry.how)}</p><p><strong>Готово, когда:</strong> ${e(entry.done)}</p><a href="#guide">Инструкция для первой недели ${icon('arrow')}</a></details>`;}
 function today(){
-  const w=currentWeek(),done=store.completed(),p=progress(w.tasks.map(t=>t.id),done),state=learningStatus(startDate());
-  const isUpcoming=state.phase==='upcoming';
-  const stateLabel=isUpcoming?`Старт ${longDate(startDate())}`:state.phase==='finished'?'Маршрут завершён по календарю':`Идёт неделя ${state.week} из 52`;
-  return `<div class="dashboard-heading"><div><div class="eyebrow">ТВОЁ ПРОСТРАНСТВО РАЗВИТИЯ</div><h1>Привет! Твой следующий шаг — здесь<span class="heading-dot">.</span></h1><p>Небольшой фокус на сегодня. Большой результат через год.</p></div><a href="#schedule" class="date-chip">${icon('calendar')}<span>${longDate(startDate())}<small>дата старта обучения</small></span></a></div>
-  <section class="learning-hero"><div class="hero-copy"><span class="hero-kicker"><i></i> ${stateLabel}</span><h2>Учись новому.<br><span>Создавай своё.</span></h2><p>C# / .NET, PostgreSQL и AI — от первых уверенных шагов до собственного Developer Assistant.</p><div class="hero-actions">${isUpcoming?`<a class="button" href="#guide">Подготовиться к старту ${icon('arrow')}</a>`:`<button class="button" id="focus-task">Продолжить неделю ${icon('arrow')}</button>`}<a class="hero-link" href="#roadmap">Посмотреть весь путь ${icon('external')}</a></div><div class="hero-meta"><span>${icon('route')} 52 недели</span><span>${icon('clock')} ${store.get('weeklyHours',5.5)} ч в неделю</span><span>${icon('code')} 1 большой проект</span></div></div>${heroArtwork()}</section>
-  ${onboarding()}${stats()}
-  <div class="dashboard-grid"><section class="panel week-panel" id="week-task-list"><div class="panel-header"><div class="week-caption"><span class="week-badge">НЕДЕЛЯ ${String(w.number).padStart(2,'0')}</span><span>${range(w.number)}</span></div><div class="week-controls"><button class="icon-button" data-week="${w.number-1}" ${w.number===1?'disabled':''} aria-label="Предыдущая неделя">${icon('arrow','flip')}</button><button class="icon-button" data-week="${w.number+1}" ${w.number===52?'disabled':''} aria-label="Следующая неделя">${icon('arrow')}</button></div></div><h2>${e(w.title)}</h2><p class="muted">${isUpcoming&&w.number===1?'План первой недели · можно подготовиться заранее':w.number===state.week?'Твоя текущая неделя':'Выбрана неделя '+w.number} · примерно 5,5 часов практики</p><div class="task-filter"><button data-status="all" class="${status==='all'?'active':''}" aria-pressed="${status==='all'}">Все задачи</button><button data-status="active" class="${status==='active'?'active':''}" aria-pressed="${status==='active'}">В работе</button><button data-status="done" class="${status==='done'?'active':''}" aria-pressed="${status==='done'}">Готово</button><span>${p.done}/${p.total} · ${p.percent}%</span></div><div class="tasks">${w.tasks.filter(t=>status==='all'||(status==='done'?done.has(t.id):!done.has(t.id))).map(t=>`<div class="task-item">${taskRow(t,done)}${firstWeekHelp(t)}</div>`).join('')||'<p class="empty">Здесь пока нет задач. Попробуй другой фильтр.</p>'}</div><div class="week-note"><label for="week-note">${icon('book')} Заметки о неделе <span>Что понял? Что сделал? Какой следующий шаг?</span></label><textarea id="week-note" data-note="week-${w.number}" placeholder="Например: понял, чем List отличается от Dictionary. Хочу попробовать фильтрацию задач…" rows="3" maxlength="20000">${e(store.note('week-'+w.number))}</textarea><small>${icon('shield')} Сохраняется автоматически на сервере</small></div></section>
-  <aside class="right-column"><section class="focus-card"><div class="focus-top"><span class="project-icon">${icon('code')}</span>${pill('ПРОЕКТ ГОДА')}</div><h2>Developer<br>Assistant<span>.</span></h2><p>Один проект, который растёт вместе с тобой.</p><div class="project-stack"><span>.NET</span><span>PostgreSQL</span><span>AI</span></div><div class="focus-deliverable"><small>РЕЗУЛЬТАТ ЭТОЙ НЕДЕЛИ</small><p>${e(w.deliverable)}</p></div><a href="#project">Перейти к проекту ${icon('arrow')}</a></section><section class="rhythm-card"><span class="tiny-icon">${icon('clock')}</span><h3>Ритм важнее рывка</h3><p>Пропустил занятие? Просто продолжай. Не нужно наверстывать всё за одну ночь.</p><a href="#schedule">Настроить расписание ${icon('arrow')}</a></section><a href="#guide" class="mini-guide"><span>${icon('book')}</span><div><strong>Застрял на первом шаге?</strong><small>Открой инструкцию новичка</small></div>${icon('chevron')}</a></aside></div>
-  <section class="video-section"><div class="section-heading"><div><div class="eyebrow">ТЕОРИЯ → ПРАКТИКА</div><h2>Посмотри. Попробуй. Разберись.</h2><p>Материалы к неделе ${w.number}. Выбери один разбор, который подходит тебе.</p></div><a href="#resources">Вся библиотека ${icon('arrow')}</a></div><div class="video-grid">${w.videos.map((id,i)=>videoCard(content.videos.find(v=>v.id===id),i)).join('')}</div><div class="resource-footnote">${link(w.searchURL,'Найти видео точнее по теме недели')}<span>RU и EN · выбирай нужный раздел курса</span></div></section>`;
+  const lesson=lessonContent.weeks[selectedWeek-1];
+  return renderDayWeek({week:currentWeek(),lesson:{...lesson,videos:lessonContent.videos},start:startDate(),done:store.completed(),note:id=>store.note(id),schedule:store.get('schedule',content.weeklySchedule),allTaskIds:allTasks().map(task=>task.id)});
 }
+
 function guide(){
   const done=store.completed(),ready=guideContent.preparation.filter(t=>done.has(t.id)).length;
   return heading('ПОНЯТНО С ПЕРВОГО ШАГА','Начни здесь. Дальше разберёмся.','Не нужно знать всё заранее. Эта инструкция поможет подготовиться и пройти первую неделю.',`<a class="button secondary" href="data/beginner-guide.md" download>${icon('download')} Скачать инструкцию</a>`)+
@@ -72,7 +67,7 @@ async function logout(){
 async function checkSession(){
   try{account=await api('/api/session');}catch{showLogin();}
 }
-function render(){if(!signedIn()){showLogin();return;}document.body.dataset.auth='authenticated';$('#auth-root').hidden=true;const page=location.hash.slice(1)||'today';const key=names[page]?page:'today';$('#page-label').textContent=names[key];document.querySelectorAll('[data-nav]').forEach(a=>{a.classList.toggle('active',a.dataset.nav===key);if(a.dataset.nav===key)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});document.documentElement.dataset.theme=store.get('theme','light');$('#main').innerHTML=({today,roadmap,resources,project,schedule,settings,guide})[key]();document.title=names[key]+' · Dev Growth';}
+function render(){if(!signedIn()){showLogin();return;}document.body.dataset.auth='authenticated';$('#auth-root').hidden=true;const opened=[...document.querySelectorAll('[data-preserve][open]')].map(el=>el.id);const page=location.hash.slice(1)||'today';const key=names[page]?page:'today';$('#page-label').textContent=names[key];document.querySelectorAll('[data-nav]').forEach(a=>{a.classList.toggle('active',a.dataset.nav===key);if(a.dataset.nav===key)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});document.documentElement.dataset.theme=store.get('theme','light');$('#main').innerHTML=({today,roadmap,resources,project,schedule,settings,guide})[key]();for(const id of opened){const el=document.getElementById(id);if(el)el.open=true;}document.title=names[key]+' · Dev Growth';}
 function download(name,bytes,type){const url=URL.createObjectURL(new Blob([bytes],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);}
 function bind(){
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')checkSession();});
@@ -83,6 +78,7 @@ function bind(){
     if(target.id==='toggle-password'){const field=$('#login-password');field.type=field.type==='password'?'text':'password';target.textContent=field.type==='password'?'Показать':'Скрыть';target.setAttribute('aria-pressed',String(field.type==='text'));return;}
     if(target.id==='logout'){await logout();return;}
     if(!signedIn())return;
+    if(target.dataset.dayFocus!==undefined){const card=document.getElementById('day-'+selectedWeek+'-'+target.dataset.dayFocus);if(card?.tagName==='DETAILS')card.open=true;card?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});card?.focus({preventScroll:true});return;}
     if(target.id==='focus-task'){if(status==='done'){status='all';render();}$('#week-task-list')?.scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('.task-row input:not(:checked)')?.focus({preventScroll:true});}
     if(target.id==='dismiss-onboarding'||target.id==='finish-guide'){await write(()=>store.set('onboardingDone',true));if(target.id==='finish-guide'){selectedWeek=1;await write(()=>store.set('selectedWeek',1));location.hash='today';}render();}
     if(target.dataset.copy){const text=target.dataset.copy==='first-project'?guideContent.commands:guideContent.example;try{await navigator.clipboard.writeText(text);toast('Код скопирован');}catch{toast('Браузер не разрешил копирование. Выдели и скопируй код вручную.');}}
@@ -95,6 +91,8 @@ function bind(){
     if(target.id==='export-reminders'){const schedule=store.get('schedule',content.weeklySchedule).map((s,i)=>({weekday:(i+1)%7,time:s.time,activity:s.activity})).filter(s=>/^\d{2}:\d{2}-\d{2}:\d{2}$/.test(s.time));download('reminders.json',JSON.stringify({timezone:Intl.DateTimeFormat().resolvedOptions().timeZone,startDate:startDate(),minutesBefore:10,siteUrl:location.origin,schedule},null,2),'application/json');}
   }catch(error){toast(error.message||'Не удалось выполнить действие');render();}});
   document.addEventListener('change',async event=>{const t=event.target;if(!signedIn())return;try{
+    if(t.dataset.day!==undefined){const day=Number(t.dataset.day);await write(()=>store.toggleDay(selectedWeek,day,t.checked));render();document.querySelector(`[data-day="${day}"]`)?.focus({preventScroll:true});}
+    if(t.id==='week-select'){selectedWeek=Number(t.value);await write(()=>store.set('selectedWeek',selectedWeek));render();window.scrollTo(0,0);}
     if(t.dataset.task){const id=t.dataset.task;await write(()=>store.toggle(id,t.checked));render();document.querySelector(`[data-task="${id}"]`)?.focus();}
     if(t.id==='track'){track=t.value;$('#week-results').innerHTML=weekResults();}
     if(t.id==='resource-type'){track=t.value;$('#resource-results').innerHTML=resourceResults();}
@@ -109,7 +107,7 @@ function bind(){
 }
 async function start(){try{
   account=await api('/api/session');
-  const [roadmap,guide,SQL]=await Promise.all([fetch('/data/roadmap.json').then(r=>{if(!r.ok)throw new Error('Не удалось загрузить программу');return r.json();}),fetch('/data/guide.json').then(r=>{if(!r.ok)throw new Error('Не удалось загрузить инструкцию');return r.json();}),window.initSqlJs({locateFile:file=>'/assets/vendor/'+file})]);content=roadmap;guideContent=guide;
+  const [roadmap,guide,lessons,SQL]=await Promise.all([fetch('/data/roadmap.json').then(r=>{if(!r.ok)throw new Error('Не удалось загрузить программу');return r.json();}),fetch('/data/guide.json').then(r=>{if(!r.ok)throw new Error('Не удалось загрузить инструкцию');return r.json();}),fetch('/data/lessons.json').then(r=>{if(!r.ok)throw new Error('Не удалось загрузить занятия по дням');return r.json();}),window.initSqlJs({locateFile:file=>'/assets/vendor/'+file})]);content=roadmap;guideContent=guide;lessonContent=lessons;content.videos=lessons.videos;
   const storage=await serverStorage(SQL),saved=await storage.read();
   store=new Store(SQL,bytes=>storage.write(bytes));store.load(saved);
   await store.applyPlanStart(content.metadata.startDate,content.metadata.planStartVersion);

@@ -45,7 +45,7 @@ Cloudflare → **Workers & Pages → Create application → Import a repository 
 
 1. Разреши Cloudflare доступ к своему репозиторию. Второй репозиторий создавать не надо.
 2. Выбери репозиторий и ветку **main**.
-3. Имя Worker: **dev-growth** — оно должно совпадать с `name` в `wrangler.jsonc`.
+3. Имя Worker: **my-learn-site** — оно должно совпадать с `name` в `wrangler.jsonc`.
 4. Root directory: корень репозитория (оставь пустым).
 5. Build command: **`npm run build`**.
 6. Deploy command: **`npm run deploy`**. Если предлагают команду для preview/non-production, отключи такие ветки/preview для личного кабинета.
@@ -57,7 +57,7 @@ Cloudflare → **Workers & Pages → Create application → Import a repository 
 
 ## 6. Задай пароль в закрытых настройках Worker
 
-Открой созданный **dev-growth → Settings → Variables and Secrets → Add**. Важно: это настройки работающего Worker, не только переменные Build.
+Открой созданный **my-learn-site → Settings → Variables and Secrets → Add**. Важно: это настройки работающего Worker, не только переменные Build.
 
 Добавь оба значения с типом **Secret**:
 
@@ -72,7 +72,7 @@ Cloudflare → **Workers & Pages → Create application → Import a repository 
 
 ## 7. Открой и проверь
 
-После успешного deploy в разделе **Domains & Routes** будет адрес вида **https://dev-growth.ТВОЙ-ПОДДОМЕН.workers.dev**. Cloudflare может попросить выбрать поддомен workers.dev — это бесплатный адрес, покупать домен не нужно.
+После успешного deploy в разделе **Domains & Routes** будет адрес вида **https://my-learn-site.ТВОЙ-ПОДДОМЕН.workers.dev**. Cloudflare может попросить выбрать поддомен workers.dev — это бесплатный адрес, покупать домен не нужно.
 
 1. Открой адрес по HTTPS и войди: **Eremeev-SA + OWNER_PASSWORD**.
 2. Отметь задачу, дождись **«Сохранено на сервере»**, обнови страницу — отметка должна остаться.

@@ -1,6 +1,6 @@
 {
   "name": "dev-growth-roadmap",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,7 +9,8 @@
     "build": "node scripts/build.js",
     "dev": "npm start",
     "deploy": "wrangler d1 migrations apply DB --remote && wrangler deploy",
-    "check:worker": "wrangler deploy --dry-run --outdir .wrangler/check"
+    "check:worker": "wrangler deploy --dry-run --outdir .wrangler/check",
+    "pdf:build": "python3 scripts/make_lessons.py"
   },
   "engines": {
     "node": ">=22.13.0"

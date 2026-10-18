@@ -1,3 +1,5 @@
+import {dayChanges} from './days.js';
+
 export function validateSetting(key,value){
   const valid={
     startDate:v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&v>='2020-01-01'&&v<='2100-12-31'&&!isNaN(Date.parse(v))&&new Date(v+'T12:00:00Z').toISOString().startsWith(v),
@@ -45,6 +47,15 @@ export class Store {
     }).then(()=>true);
   }
   toggle(id, done) { return this.mutate(()=>done ? this.db.run('INSERT OR REPLACE INTO progress VALUES (?,?)',[id,new Date().toISOString()]) : this.db.run('DELETE FROM progress WHERE id = ?',[id])); }
+  toggleDay(week,offset,complete) {
+    return this.mutate(()=>{
+      const changes=dayChanges(this.completed(),week,offset,complete);
+      this.db.run('BEGIN');
+      for(const key of changes.add)this.db.run('INSERT OR REPLACE INTO progress VALUES (?,?)',[key,new Date().toISOString()]);
+      for(const key of changes.remove)this.db.run('DELETE FROM progress WHERE id=?',[key]);
+      this.db.run('COMMIT');
+    });
+  }
   saveNote(id,body) { return this.mutate(()=>this.db.run('INSERT OR REPLACE INTO notes VALUES (?,?,?)',[id,body,new Date().toISOString()])); }
   async import(bytes) {
     const candidate=new this.SQL.Database(new Uint8Array(bytes));
