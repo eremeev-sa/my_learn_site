@@ -1,0 +1,12 @@
+{
+  "timezone": "Europe/Moscow",
+  "startDate": "2026-10-19",
+  "minutesBefore": 10,
+  "siteUrl": "https://eremeev-sa.github.io/my_learn_site/",
+  "schedule": [
+    {"weekday": 1, "time": "22:00-22:45", "activity": "C#/.NET: небольшая тема и примеры в коде"},
+    {"weekday": 4, "time": "22:00-22:45", "activity": "AI: короткий эксперимент"},
+    {"weekday": 6, "time": "16:00-18:00", "activity": "Практика Developer Assistant"},
+    {"weekday": 0, "time": "17:00-19:00", "activity": "Завершить задачу и сделать недельный обзор"}
+  ]
+}

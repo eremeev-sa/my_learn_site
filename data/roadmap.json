@@ -1,0 +1,3905 @@
+{
+  "metadata": {
+    "title": "Дорожная карта развития разработчика C#/.NET + PostgreSQL + AI",
+    "language": "ru",
+    "version": "1.0",
+    "created": "2026-10-16",
+    "durationMonths": 12,
+    "weeklyTargetHours": 5.5,
+    "audience": "Junior-разработчик, цель - уверенный самостоятельный backend engineer и практик AI agents"
+  },
+  "principles": [
+    "Практика важнее количества просмотренных видео",
+    "Один долгоживущий проект вместо множества брошенных демо",
+    "AI изучается параллельно, начиная с одной короткой сессии в неделю",
+    "Не использовать агента там, где достаточно обычной функции или детерминированного workflow",
+    "Не жертвовать сном и восстановлением ради компенсации пропущенных занятий",
+    "Ссылки и версии библиотек перепроверять в день начала обучения"
+  ],
+  "weeklySchedule": [
+    {
+      "day": "Понедельник",
+      "time": "22:00-22:45",
+      "activity": "C#/.NET: одна небольшая тема, конспект и 1-2 примера.",
+      "kind": "короткая сессия"
+    },
+    {
+      "day": "Вторник",
+      "time": "Без обязательств",
+      "activity": "Зал, дела или отдых; не нужно наверстывать учёбой.",
+      "kind": "восстановление"
+    },
+    {
+      "day": "Среда",
+      "time": "Резерв",
+      "activity": "При необходимости перенести сюда пропущенную сессию.",
+      "kind": "гибкий день"
+    },
+    {
+      "day": "Четверг",
+      "time": "22:00-22:45",
+      "activity": "AI: курс, документация или небольшой эксперимент.",
+      "kind": "короткая сессия"
+    },
+    {
+      "day": "Пятница",
+      "time": "Отдых",
+      "activity": "Личное время и восстановление.",
+      "kind": "восстановление"
+    },
+    {
+      "day": "Суббота",
+      "time": "16:00-18:00",
+      "activity": "Практика проекта после учёбы 08:00-12:00 и зала 13:00-15:00; встречи с друзьями около 20:00-21:00 оставить свободными.",
+      "kind": "глубокая работа"
+    },
+    {
+      "day": "Воскресенье",
+      "time": "17:00-19:00",
+      "activity": "Закончить одну задачу, проверить код и спланировать следующую неделю.",
+      "kind": "практика и обзор"
+    }
+  ],
+  "phases": [
+    {
+      "id": "p1",
+      "title": "Фундамент C#/.NET",
+      "months": "1-2",
+      "track": "backend",
+      "goal": "Понимать язык и уметь объяснить устройство своего кода.",
+      "topics": [
+        "Коллекции, LINQ, generics, records, nullable reference types",
+        "Интерфейсы, делегаты, события; композиция вместо лишнего наследования",
+        "Исключения и управление ресурсами через IDisposable / IAsyncDisposable",
+        "async/await, Task, CancellationToken и отмена операций",
+        "Dependency Injection, конфигурация, логирование",
+        "SOLID и границы ответственности"
+      ],
+      "tasks": [
+        "Написать компонент с бизнес-правилами и понятной моделью данных",
+        "Покрыть ключевое поведение тестами",
+        "Сравнить IEnumerable и IQueryable на конкретном примере",
+        "Реализовать отмену асинхронной операции через CancellationToken"
+      ],
+      "deliverable": "Небольшая библиотека или компонент с README, тестами и объяснением решений.",
+      "done": [
+        "Могу объяснить асинхронность и отмену задач",
+        "Умею выбирать коллекции и LINQ осознанно",
+        "Могу аргументировать необходимость интерфейса",
+        "Ошибки обработаны на подходящем уровне"
+      ],
+      "resources": [
+        "dotnet-learning",
+        "async-csharp",
+        "nick-async"
+      ]
+    },
+    {
+      "id": "p2",
+      "title": "ASP.NET Core, HTTP и тесты",
+      "months": "2-3",
+      "track": "backend",
+      "goal": "Реализовать законченную backend-функцию с тестами.",
+      "topics": [
+        "REST и HTTP: методы, статусы, заголовки",
+        "Routing, middleware, DI и конфигурация",
+        "DTO, валидация, пагинация и фильтрация",
+        "Authentication и Authorization",
+        "EF Core, миграции и обработка ошибок",
+        "Unit- и integration-тесты, Swagger/OpenAPI"
+      ],
+      "tasks": [
+        "Добавить endpoint создания и получения задач",
+        "Добавить валидацию и единый формат ошибок",
+        "Написать unit-тесты для бизнес-правил",
+        "Написать интеграционный тест для HTTP + БД"
+      ],
+      "deliverable": "API с PostgreSQL, тестами, Swagger и описанием локального запуска.",
+      "done": [
+        "Корректные HTTP-коды и валидация",
+        "Бизнес-логика тестируется независимо от инфраструктуры",
+        "Секреты не хранятся в репозитории",
+        "Есть инструкция dotnet test и запуска"
+      ],
+      "resources": [
+        "aspnet-core",
+        "xunit",
+        "dotnet-testing"
+      ]
+    },
+    {
+      "id": "p3",
+      "title": "PostgreSQL и производительность запросов",
+      "months": "3-4",
+      "track": "database",
+      "goal": "Писать корректный SQL и находить узкие места запросов.",
+      "topics": [
+        "JOIN, CTE, подзапросы, агрегаты и оконные функции",
+        "Ключи, ограничения, нормализация и связи",
+        "Транзакции, уровни изоляции и блокировки",
+        "B-tree и составные/частичные индексы",
+        "EXPLAIN, EXPLAIN ANALYZE и планы запросов",
+        "N+1, проекции и особенности EF Core"
+      ],
+      "tasks": [
+        "Реализовать 8-10 запросов для выборок и отчётов",
+        "Снять план выполнения для репрезентативного запроса",
+        "Создать индекс только после изучения плана и сценария",
+        "Сравнить результат и время до/после оптимизации"
+      ],
+      "deliverable": "Набор SQL-запросов и короткий отчёт с планами и обоснованием индекса.",
+      "done": [
+        "Могу прочитать базовый план запроса",
+        "Понимаю, почему индекс помогает или мешает",
+        "Могу объяснить транзакцию и проблему конкурентного доступа",
+        "Проверил запросы на реалистичных объёмах"
+      ],
+      "resources": [
+        "postgres-tutorial",
+        "postgres-indexes",
+        "ef-performance"
+      ]
+    },
+    {
+      "id": "p4",
+      "title": "Инженерная практика и качество поставки",
+      "months": "4-6",
+      "track": "backend",
+      "goal": "Доставлять изменения, которые можно безопасно поддерживать.",
+      "topics": [
+        "Git, ветки, небольшие PR и разрешение конфликтов",
+        "Docker и Docker Compose",
+        "CI на GitHub Actions",
+        "Архитектурные границы и управление зависимостями",
+        "Логи, метрики и диагностика",
+        "Конфигурация, секреты, ретраи и идемпотентность",
+        "Рефакторинг и интеграционные тесты"
+      ],
+      "tasks": [
+        "Добавить Docker Compose для API и PostgreSQL",
+        "Настроить CI: restore, build, tests",
+        "Добавить структурированные логи и health check",
+        "Описать архитектуру и trade-offs в README"
+      ],
+      "deliverable": "Запускаемый репозиторий с CI, тестами и понятной документацией.",
+      "done": [
+        "Новый разработчик может поднять проект по инструкции",
+        "CI выполняется при push/PR",
+        "Ошибки диагностируются по логам",
+        "Архитектурные решения имеют объяснение"
+      ],
+      "resources": [
+        "dotnet-testing",
+        "ef-performance"
+      ]
+    },
+    {
+      "id": "ai1",
+      "title": "AI-фундамент для .NET",
+      "months": "1-2 (параллельно)",
+      "track": "ai",
+      "goal": "Понимать API моделей и строить надёжное LLM-приложение.",
+      "topics": [
+        "LLM, токены, контекст и embeddings на уровне понятий",
+        "Вызов модели через API и обработка ошибок",
+        "System prompts и структурированные ответы",
+        "Function/tool calling",
+        "Стоимость, задержки, лимиты и конфиденциальность",
+        "Отделение бизнес-логики от провайдера модели"
+      ],
+      "tasks": [
+        "Создать endpoint суммаризации заметки",
+        "Попросить модель вернуть JSON по заданной схеме",
+        "Добавить таймаут, логирование и обработку ошибки провайдера",
+        "Сохранить пару эталонных входов и ожидаемых свойств ответа"
+      ],
+      "deliverable": "Одна AI-функция в ASP.NET Core с проверяемым контрактом.",
+      "done": [
+        "API модели не смешан с бизнес-логикой",
+        "Вход и результат валидируются",
+        "Есть лимиты и обработка ошибок",
+        "Не записываются секреты и чувствительные данные в логи"
+      ],
+      "resources": [
+        "genai-dotnet"
+      ]
+    },
+    {
+      "id": "ai2",
+      "title": "Агенты и инструменты",
+      "months": "3-4 (параллельно)",
+      "track": "ai",
+      "goal": "Создать агента, способного вызывать ограниченные функции приложения.",
+      "topics": [
+        "Чем агент отличается от обычного вызова LLM",
+        "Инструменты с типизированными аргументами",
+        "Multi-turn conversations и состояние",
+        "Память и persistence",
+        "Workflow с явными шагами",
+        "Ограничения, таймауты и лимиты количества действий"
+      ],
+      "tasks": [
+        "Создать агента для поиска задач по ID или статусу",
+        "Добавить только allowlist инструментов",
+        "Ограничить аргументы и права инструмента",
+        "Разделить открытый диалог и детерминированные бизнес-операции"
+      ],
+      "deliverable": "Агент вызывает 2-3 безопасные функции и возвращает результат в контролируемом формате.",
+      "done": [
+        "Инструменты имеют явные входы и выходы",
+        "Нет произвольного доступа к БД",
+        "Ошибки инструментов обрабатываются",
+        "Там, где хватит обычной функции, агент не используется"
+      ],
+      "resources": [
+        "agent-framework",
+        "agent-overview",
+        "agent-samples"
+      ]
+    },
+    {
+      "id": "ai3",
+      "title": "RAG и PostgreSQL / pgvector",
+      "months": "5-6",
+      "track": "ai",
+      "goal": "Отвечать по базе знаний с опорой на найденные документы.",
+      "topics": [
+        "Embeddings и семантический поиск",
+        "Chunking, метаданные и retrieval",
+        "Источники/цитаты в ответах",
+        "pgvector и similarity search",
+        "Оценка релевантности найденных фрагментов",
+        "Разграничение доступа к документам"
+      ],
+      "tasks": [
+        "Загрузить несколько технических документов",
+        "Разбить документы на фрагменты и хранить метаданные",
+        "Реализовать поиск по вопросу пользователя",
+        "Проверить качество на 10-20 эталонных вопросах"
+      ],
+      "deliverable": "Чат по документам, который извлекает контекст из PostgreSQL и указывает источники.",
+      "done": [
+        "Ответ отделён от найденных доказательств",
+        "Можно диагностировать неверный retrieval",
+        "Фильтры доступа применяются до передачи контекста модели",
+        "Есть набор вопросов для оценки качества"
+      ],
+      "resources": [
+        "genai-dotnet",
+        "pgvector"
+      ]
+    },
+    {
+      "id": "ai4",
+      "title": "Оркестрация и multi-agent",
+      "months": "7-8",
+      "track": "ai",
+      "goal": "Управлять несколькими этапами без потери контроля.",
+      "topics": [
+        "Последовательные и параллельные workflow",
+        "Явные состояния и переходы",
+        "Передача результатов между этапами",
+        "Human-in-the-loop и одобрение действий",
+        "Повторные попытки, таймауты и идемпотентность",
+        "Prompt injection и безопасность инструментов"
+      ],
+      "tasks": [
+        "Собрать workflow: классификация -> поиск -> подготовка черновика -> проверка",
+        "Добавить подтверждение перед изменяющим действием",
+        "Логировать каждый шаг и причину ошибки",
+        "Сравнить workflow с вариантом без агента"
+      ],
+      "deliverable": "Контролируемый workflow с несколькими шагами, проверкой и подтверждением человека.",
+      "done": [
+        "Порядок критичных действий задаётся кодом",
+        "Изменение данных требует разрешения",
+        "Количество шагов и стоимость ограничены",
+        "Есть тесты ошибок и отказа инструмента"
+      ],
+      "resources": [
+        "agent-workflows",
+        "agent-framework",
+        "agent-samples"
+      ]
+    },
+    {
+      "id": "p9",
+      "title": "Production-ready проект и портфолио",
+      "months": "9-12",
+      "track": "combined",
+      "goal": "Довести один проект до состояния, которое можно уверенно показать на интервью.",
+      "topics": [
+        "Integration tests и regression scenarios",
+        "Логи, метрики, traces и аудит инструментов",
+        "Контроль latency, стоимости и лимитов",
+        "Fail-safe режимы и деградация при сбоях",
+        "Docker, CI/CD и инструкция развёртывания",
+        "Архитектурная документация и демонстрация"
+      ],
+      "tasks": [
+        "Добавить набор эталонных AI-запросов и оценки",
+        "Проверить недоступность модели/БД/инструментов",
+        "Добавить ограничения доступа и журналирование действий",
+        "Записать короткое демо и подготовить архитектурное объяснение"
+      ],
+      "deliverable": "Developer Assistant: .NET API + PostgreSQL + RAG + workflow + tests + CI + README.",
+      "done": [
+        "Проект запускается по инструкции",
+        "Ключевые сценарии покрыты тестами",
+        "Есть результаты оценки качества",
+        "Могу объяснить архитектуру, риски и компромиссы"
+      ],
+      "resources": [
+        "dotnet-testing",
+        "agent-overview",
+        "agent-workflows"
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "dotnet-learning",
+      "category": "C#/.NET",
+      "title": "Microsoft Learn: .NET и C#",
+      "url": "https://learn.microsoft.com/en-us/training/dotnet",
+      "type": "course",
+      "stage": "months-1-2",
+      "purpose": "Базовый каталог обучения C# и .NET; выбирай модули по пробелам."
+    },
+    {
+      "id": "async-csharp",
+      "category": "C#/.NET",
+      "title": "Microsoft: Asynchronous programming in C#",
+      "url": "https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/",
+      "type": "documentation",
+      "stage": "months-1-2",
+      "purpose": "Task, async/await, неблокирующие операции, композиция задач и обработка ошибок."
+    },
+    {
+      "id": "nick-async",
+      "category": "C#/.NET",
+      "title": "Nick Chapsas: Making async code run faster in C#",
+      "url": "https://www.youtube.com/watch?v=gW19LaAYczI",
+      "type": "youtube",
+      "stage": "months-1-2",
+      "purpose": "Дополнительный разбор производительности async; после просмотра проверь применимость к своему коду."
+    },
+    {
+      "id": "aspnet-core",
+      "category": "ASP.NET Core",
+      "title": "Microsoft Learn: Understand ASP.NET Core fundamentals",
+      "url": "https://learn.microsoft.com/en-us/training/paths/aspnet-core-fundamentals/",
+      "type": "course",
+      "stage": "months-2-3",
+      "purpose": "Учебный путь по ASP.NET Core, middleware и основам веб-приложений."
+    },
+    {
+      "id": "xunit",
+      "category": "Testing",
+      "title": "Microsoft Learn: Unit testing C# with xUnit",
+      "url": "https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-csharp-with-xunit",
+      "type": "tutorial",
+      "stage": "months-2-3",
+      "purpose": "Создание solution с проектом и unit-тестами; запуск через dotnet test."
+    },
+    {
+      "id": "dotnet-testing",
+      "category": "Testing",
+      "title": "Microsoft: Testing in .NET",
+      "url": "https://learn.microsoft.com/en-us/dotnet/core/testing/",
+      "type": "documentation",
+      "stage": "months-2-3",
+      "purpose": "Разница между unit, integration и load-тестами."
+    },
+    {
+      "id": "postgres-tutorial",
+      "category": "PostgreSQL",
+      "title": "PostgreSQL 18: официальный tutorial",
+      "url": "https://www.postgresql.org/docs/current/tutorial.html",
+      "type": "documentation",
+      "stage": "months-3-4",
+      "purpose": "SQL, соединения таблиц, агрегаты, транзакции и оконные функции."
+    },
+    {
+      "id": "postgres-indexes",
+      "category": "PostgreSQL",
+      "title": "PostgreSQL: Indexes",
+      "url": "https://www.postgresql.org/docs/current/indexes.html",
+      "type": "documentation",
+      "stage": "months-3-4",
+      "purpose": "Типы индексов и компромиссы между чтением и изменением данных."
+    },
+    {
+      "id": "ef-performance",
+      "category": "PostgreSQL / EF Core",
+      "title": "Microsoft: Efficient Querying in EF Core",
+      "url": "https://learn.microsoft.com/en-us/ef/core/performance/efficient-querying",
+      "type": "documentation",
+      "stage": "months-3-4",
+      "purpose": "Производительность запросов, проекции, N+1 и запросы к данным."
+    },
+    {
+      "id": "genai-dotnet",
+      "category": "AI/.NET",
+      "title": "Microsoft: Generative AI for Beginners .NET",
+      "url": "https://github.com/microsoft/Generative-AI-for-beginners-dotnet",
+      "type": "course",
+      "stage": "months-1-2-ai",
+      "purpose": "Бесплатный open-source курс: Microsoft.Extensions.AI, RAG и урок по Agent Framework; версия 2 на .NET 10."
+    },
+    {
+      "id": "agent-framework",
+      "category": "AI Agents",
+      "title": "Microsoft Agent Framework: Get Started",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/get-started/",
+      "type": "documentation",
+      "stage": "months-3-4-ai",
+      "purpose": "Пошаговое обучение: первый агент, tools, multi-turn, память, workflow и hosting."
+    },
+    {
+      "id": "agent-overview",
+      "category": "AI Agents",
+      "title": "Microsoft Agent Framework: overview",
+      "url": "https://learn.microsoft.com/agent-framework/overview",
+      "type": "documentation",
+      "stage": "months-3-8-ai",
+      "purpose": "Когда использовать агента, а когда детерминированный workflow; понятия tools, sessions, middleware."
+    },
+    {
+      "id": "agent-workflows",
+      "category": "AI Agents",
+      "title": "Microsoft Agent Framework: Workflows",
+      "url": "https://learn.microsoft.com/en-us/agent-framework/concepts/workflows/",
+      "type": "documentation",
+      "stage": "months-7-8-ai",
+      "purpose": "Оркестрация, состояния, execution paths и контроль выполнения."
+    },
+    {
+      "id": "agent-samples",
+      "category": "AI Agents",
+      "title": "Microsoft Agent Framework: C# samples",
+      "url": "https://github.com/microsoft/agent-framework/tree/main/dotnet/samples",
+      "type": "github",
+      "stage": "months-3-8-ai",
+      "purpose": "Примеры agents, tools, middleware, workflows и hosting."
+    },
+    {
+      "id": "pgvector",
+      "category": "RAG",
+      "title": "pgvector: vector similarity search for PostgreSQL",
+      "url": "https://github.com/pgvector/pgvector",
+      "type": "github",
+      "stage": "months-5-6-ai",
+      "purpose": "Векторный поиск непосредственно в PostgreSQL."
+    },
+    {
+      "id": "tech-writing",
+      "category": "Soft skills",
+      "title": "Google: Technical Writing One",
+      "url": "https://developers.google.com/tech-writing/one",
+      "type": "course",
+      "stage": "ongoing",
+      "purpose": "Ясная техническая документация, абзацы, активный залог и ориентация на читателя."
+    },
+    {
+      "id": "code-review",
+      "category": "Soft skills",
+      "title": "Atlassian: Code reviews",
+      "url": "https://www.atlassian.com/agile/software-development/code-reviews",
+      "type": "article",
+      "stage": "ongoing",
+      "purpose": "Практики review изменений и командной обратной связи."
+    },
+    {
+      "id": "android-ai-studio",
+      "category": "Android app generation",
+      "title": "Google AI Studio: Build Android apps",
+      "url": "https://ai.google.dev/gemini-api/docs/aistudio-android",
+      "type": "documentation",
+      "stage": "app-build",
+      "purpose": "Создание нативных Android-прототипов из промпта; Kotlin и Jetpack Compose. Проверяй ограничения платформы."
+    },
+    {
+      "id": "compose",
+      "category": "Android app generation",
+      "title": "Android Developers: Jetpack Compose",
+      "url": "https://developer.android.com/jetpack/compose",
+      "type": "documentation",
+      "stage": "app-build",
+      "purpose": "Официальный инструментарий UI для нативного Android."
+    },
+    {
+      "id": "room",
+      "category": "Android app generation",
+      "title": "Android Developers: Room",
+      "url": "https://developer.android.com/training/data-storage/room",
+      "type": "documentation",
+      "stage": "app-build",
+      "purpose": "Локальная база данных для хранения прогресса и заметок."
+    }
+  ],
+  "project": {
+    "name": "Developer Assistant",
+    "description": "Личный помощник для задач и технических заметок, постепенно расширяемый AI, RAG и workflow",
+    "milestones": [
+      {
+        "stage": "1. Backend",
+        "deliverable": "ASP.NET Core API для задач и заметок; PostgreSQL; EF Core; миграции; валидация; тесты.",
+        "evidence": "README, схема БД, тесты и Swagger."
+      },
+      {
+        "stage": "2. Engineering",
+        "deliverable": "Docker Compose, CI, интеграционные тесты, health check, логи и инструкция запуска.",
+        "evidence": "Успешный CI и запуск по инструкции на чистой машине."
+      },
+      {
+        "stage": "3. AI features",
+        "deliverable": "Суммаризация заметок и структурированный ответ модели через API.",
+        "evidence": "Тестовые входы, схема результата, таймауты и обработка ошибок."
+      },
+      {
+        "stage": "4. Agent + RAG",
+        "deliverable": "Агент с allowlist инструментов; поиск по документам; pgvector при необходимости.",
+        "evidence": "Набор эталонных запросов, источники ответа и ограничения доступа."
+      },
+      {
+        "stage": "5. Workflow",
+        "deliverable": "Несколько шагов с проверкой результата и одобрением перед изменением данных.",
+        "evidence": "Логи шагов, сценарии ошибок и демонстрация end-to-end."
+      }
+    ]
+  },
+  "softSkills": [
+    {
+      "id": "ss1",
+      "title": "Техническая коммуникация",
+      "practice": "Раз в неделю объяснить за 3-5 минут: что сделано, почему выбран вариант, какие альтернативы.",
+      "resource": "tech-writing"
+    },
+    {
+      "id": "ss2",
+      "title": "Code review и обратная связь",
+      "practice": "Проверять корректность, границы, тесты и безопасность; описывать проблему и влияние, а не личность автора.",
+      "resource": "code-review"
+    },
+    {
+      "id": "ss3",
+      "title": "Работа с требованиями",
+      "practice": "Перед задачей записывать цель, happy path, edge cases, критерии готовности и вопросы к заказчику."
+    },
+    {
+      "id": "ss4",
+      "title": "Оценка и организация",
+      "practice": "Делить большую задачу на небольшие части, фиксировать допущения и заранее сообщать о блокерах."
+    },
+    {
+      "id": "ss5",
+      "title": "Рефлексия и обучение",
+      "practice": "Вести заметки: проблема, причина, варианты, решение, компромиссы; раз в месяц показывать проект."
+    }
+  ],
+  "weeklyChecklist": [
+    {
+      "id": "w1",
+      "title": "Два учебных блока по C#/.NET или PostgreSQL",
+      "detail": "Изучить тему и попробовать её в коде."
+    },
+    {
+      "id": "w2",
+      "title": "Один короткий блок по AI",
+      "detail": "Эксперимент с моделью, инструментами, RAG или workflow."
+    },
+    {
+      "id": "w3",
+      "title": "Одна завершённая задача проекта",
+      "detail": "Работающий результат и способ его проверить."
+    },
+    {
+      "id": "w4",
+      "title": "Одна практика soft skills",
+      "detail": "README, PR-описание, разбор требований или объяснение решения."
+    },
+    {
+      "id": "w5",
+      "title": "Недельный обзор",
+      "detail": "Что понял, что сделал, где застрял и следующая цель."
+    }
+  ],
+  "milestones": [
+    {
+      "month": 3,
+      "expected": "Самостоятельно реализует и тестирует backend-функцию, пишет SQL и объясняет устройство решения."
+    },
+    {
+      "month": 6,
+      "expected": "Развивает API, пишет integration tests, разбирается в базовой производительности и создаёт простого агента."
+    },
+    {
+      "month": 12,
+      "expected": "Имеет проект с PostgreSQL, тестами, RAG/workflow, может объяснять архитектуру и риски."
+    }
+  ],
+  "sourceNote": "Временная версия ресурсов проверена 2026-10-16; обучающие программы и URL могут обновляться.",
+  "weeks": [
+    {
+      "number": 1,
+      "title": "Коллекции и ясная модель данных",
+      "phase": "p1",
+      "aiPhase": "ai1",
+      "topic": "List, Dictionary, HashSet; сложность поиска и nullable-типы",
+      "ai": "LLM, токены и контекст: нарисовать путь запроса",
+      "deliverable": "Создать solution и модели TaskItem / Note с nullable-аннотациями",
+      "tasks": [
+        {
+          "id": "w1-core",
+          "title": "List, Dictionary, HashSet; сложность поиска и nullable-типы",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p1"
+        },
+        {
+          "id": "w1-ai",
+          "title": "LLM, токены и контекст: нарисовать путь запроса",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai1"
+        },
+        {
+          "id": "w1-project",
+          "title": "Создать solution и модели TaskItem / Note с nullable-аннотациями",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p1"
+        },
+        {
+          "id": "w1-soft",
+          "title": "Раз в неделю объяснить за 3-5 минут: что сделано, почему выбран вариант, какие альтернативы.",
+          "kind": "soft",
+          "label": "Техническая коммуникация",
+          "minutes": 30,
+          "phase": "p1"
+        },
+        {
+          "id": "w1-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p1"
+        }
+      ],
+      "videos": [
+        "cs-ru",
+        "cs-en",
+        "ai-base"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9A%D0%BE%D0%BB%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20%D0%B8%20%D1%8F%D1%81%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss1"
+    },
+    {
+      "number": 2,
+      "title": "LINQ без магии",
+      "phase": "p1",
+      "aiPhase": "ai1",
+      "topic": "Where, Select, GroupBy; отложенное выполнение и материализация",
+      "ai": "Сравнить два промпта суммаризации на одном тексте",
+      "deliverable": "Сделать фильтр задач по статусу и группировку по приоритету",
+      "tasks": [
+        {
+          "id": "w2-core",
+          "title": "Where, Select, GroupBy; отложенное выполнение и материализация",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p1"
+        },
+        {
+          "id": "w2-ai",
+          "title": "Сравнить два промпта суммаризации на одном тексте",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai1"
+        },
+        {
+          "id": "w2-project",
+          "title": "Сделать фильтр задач по статусу и группировку по приоритету",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p1"
+        },
+        {
+          "id": "w2-soft",
+          "title": "Проверять корректность, границы, тесты и безопасность; описывать проблему и влияние, а не личность автора.",
+          "kind": "soft",
+          "label": "Code review и обратная связь",
+          "minutes": 30,
+          "phase": "p1"
+        },
+        {
+          "id": "w2-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p1"
+        }
+      ],
+      "videos": [
+        "cs-ru",
+        "cs-en",
+        "ai-base"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=LINQ%20%D0%B1%D0%B5%D0%B7%20%D0%BC%D0%B0%D0%B3%D0%B8%D0%B8%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss2"
+    },
+    {
+      "number": 3,
+      "title": "Контракты и композиция",
+      "phase": "p1",
+      "aiPhase": "ai1",
+      "topic": "Интерфейсы, generics, records; обосновать границу компонента",
+      "ai": "Описать контракт входа и выхода AI-функции без вызова модели",
+      "deliverable": "Выделить сервис задач и интерфейс репозитория",
+      "tasks": [
+        {
+          "id": "w3-core",
+          "title": "Интерфейсы, generics, records; обосновать границу компонента",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p1"
+        },
+        {
+          "id": "w3-ai",
+          "title": "Описать контракт входа и выхода AI-функции без вызова модели",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai1"
+        },
+        {
+          "id": "w3-project",
+          "title": "Выделить сервис задач и интерфейс репозитория",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p1"
+        },
+        {
+          "id": "w3-soft",
+          "title": "Перед задачей записывать цель, happy path, edge cases, критерии готовности и вопросы к заказчику.",
+          "kind": "soft",
+          "label": "Работа с требованиями",
+          "minutes": 30,
+          "phase": "p1"
+        },
+        {
+          "id": "w3-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p1"
+        }
+      ],
+      "videos": [
+        "cs-ru",
+        "cs-en",
+        "ai-base"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%BA%D1%82%D1%8B%20%D0%B8%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%B7%D0%B8%D1%86%D0%B8%D1%8F%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss3"
+    },
+    {
+      "number": 4,
+      "title": "Ошибки и ресурсы",
+      "phase": "p1",
+      "aiPhase": "ai1",
+      "topic": "Исключения, IDisposable, using; обработка на подходящем уровне",
+      "ai": "Составить список рисков: стоимость, задержки, личные данные",
+      "deliverable": "Добавить валидацию модели и тесты ошибочных входов",
+      "tasks": [
+        {
+          "id": "w4-core",
+          "title": "Исключения, IDisposable, using; обработка на подходящем уровне",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p1"
+        },
+        {
+          "id": "w4-ai",
+          "title": "Составить список рисков: стоимость, задержки, личные данные",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai1"
+        },
+        {
+          "id": "w4-project",
+          "title": "Добавить валидацию модели и тесты ошибочных входов",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p1"
+        },
+        {
+          "id": "w4-soft",
+          "title": "Делить большую задачу на небольшие части, фиксировать допущения и заранее сообщать о блокерах.",
+          "kind": "soft",
+          "label": "Оценка и организация",
+          "minutes": 30,
+          "phase": "p1"
+        },
+        {
+          "id": "w4-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p1"
+        }
+      ],
+      "videos": [
+        "cs-ru",
+        "cs-en",
+        "ai-base"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9E%D1%88%D0%B8%D0%B1%D0%BA%D0%B8%20%D0%B8%20%D1%80%D0%B5%D1%81%D1%83%D1%80%D1%81%D1%8B%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss4"
+    },
+    {
+      "number": 5,
+      "title": "Асинхронность и отмена",
+      "phase": "p1",
+      "aiPhase": "ai1",
+      "topic": "Task, async/await и CancellationToken; избежать блокировок",
+      "ai": "Сделать первый API-вызов модели в отдельном учебном проекте",
+      "deliverable": "Реализовать отменяемое чтение и проверить сценарий отмены",
+      "tasks": [
+        {
+          "id": "w5-core",
+          "title": "Task, async/await и CancellationToken; избежать блокировок",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p1"
+        },
+        {
+          "id": "w5-ai",
+          "title": "Сделать первый API-вызов модели в отдельном учебном проекте",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai1"
+        },
+        {
+          "id": "w5-project",
+          "title": "Реализовать отменяемое чтение и проверить сценарий отмены",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p1"
+        },
+        {
+          "id": "w5-soft",
+          "title": "Вести заметки: проблема, причина, варианты, решение, компромиссы; раз в месяц показывать проект.",
+          "kind": "soft",
+          "label": "Рефлексия и обучение",
+          "minutes": 30,
+          "phase": "p1"
+        },
+        {
+          "id": "w5-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p1"
+        }
+      ],
+      "videos": [
+        "cs-ru",
+        "cs-en",
+        "ai-net"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%90%D1%81%D0%B8%D0%BD%D1%85%D1%80%D0%BE%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BE%D1%82%D0%BC%D0%B5%D0%BD%D0%B0%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss5"
+    },
+    {
+      "number": 6,
+      "title": "DI, конфигурация и логи",
+      "phase": "p1",
+      "aiPhase": "ai1",
+      "topic": "Время жизни зависимостей; options; структурированные логи",
+      "ai": "Вернуть JSON по схеме и валидировать результат",
+      "deliverable": "Подключить DI и конфигурацию; исключить секреты из логов",
+      "tasks": [
+        {
+          "id": "w6-core",
+          "title": "Время жизни зависимостей; options; структурированные логи",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p1"
+        },
+        {
+          "id": "w6-ai",
+          "title": "Вернуть JSON по схеме и валидировать результат",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai1"
+        },
+        {
+          "id": "w6-project",
+          "title": "Подключить DI и конфигурацию; исключить секреты из логов",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p1"
+        },
+        {
+          "id": "w6-soft",
+          "title": "Раз в неделю объяснить за 3-5 минут: что сделано, почему выбран вариант, какие альтернативы.",
+          "kind": "soft",
+          "label": "Техническая коммуникация",
+          "minutes": 30,
+          "phase": "p1"
+        },
+        {
+          "id": "w6-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p1"
+        }
+      ],
+      "videos": [
+        "cs-ru",
+        "cs-en",
+        "ai-net"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=DI%2C%20%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B3%D1%83%D1%80%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%20%D0%BB%D0%BE%D0%B3%D0%B8%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss1"
+    },
+    {
+      "number": 7,
+      "title": "Тесты и ответственность кода",
+      "phase": "p1",
+      "aiPhase": "ai1",
+      "topic": "SOLID на конкретном компоненте; unit-тесты бизнес-правил",
+      "ai": "Сделать суммаризацию заметки через абстракцию провайдера",
+      "deliverable": "Покрыть правила приоритетов и изменения статуса тестами",
+      "tasks": [
+        {
+          "id": "w7-core",
+          "title": "SOLID на конкретном компоненте; unit-тесты бизнес-правил",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p1"
+        },
+        {
+          "id": "w7-ai",
+          "title": "Сделать суммаризацию заметки через абстракцию провайдера",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai1"
+        },
+        {
+          "id": "w7-project",
+          "title": "Покрыть правила приоритетов и изменения статуса тестами",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p1"
+        },
+        {
+          "id": "w7-soft",
+          "title": "Проверять корректность, границы, тесты и безопасность; описывать проблему и влияние, а не личность автора.",
+          "kind": "soft",
+          "label": "Code review и обратная связь",
+          "minutes": 30,
+          "phase": "p1"
+        },
+        {
+          "id": "w7-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p1"
+        }
+      ],
+      "videos": [
+        "testing",
+        "integration",
+        "ai-net"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%A2%D0%B5%D1%81%D1%82%D1%8B%20%D0%B8%20%D0%BE%D1%82%D0%B2%D0%B5%D1%82%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%B4%D0%B0%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss2"
+    },
+    {
+      "number": 8,
+      "title": "Первый законченный компонент",
+      "phase": "p1",
+      "aiPhase": "ai1",
+      "topic": "IEnumerable и IQueryable; ревью библиотеки и README",
+      "ai": "Добавить таймаут и тестовый ответ при ошибке модели",
+      "deliverable": "Подготовить библиотеку с README и объяснением решений",
+      "tasks": [
+        {
+          "id": "w8-core",
+          "title": "IEnumerable и IQueryable; ревью библиотеки и README",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p1"
+        },
+        {
+          "id": "w8-ai",
+          "title": "Добавить таймаут и тестовый ответ при ошибке модели",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai1"
+        },
+        {
+          "id": "w8-project",
+          "title": "Подготовить библиотеку с README и объяснением решений",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p1"
+        },
+        {
+          "id": "w8-soft",
+          "title": "Перед задачей записывать цель, happy path, edge cases, критерии готовности и вопросы к заказчику.",
+          "kind": "soft",
+          "label": "Работа с требованиями",
+          "minutes": 30,
+          "phase": "p1"
+        },
+        {
+          "id": "w8-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p1"
+        }
+      ],
+      "videos": [
+        "testing",
+        "integration",
+        "ai-net"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9F%D0%B5%D1%80%D0%B2%D1%8B%D0%B9%20%D0%B7%D0%B0%D0%BA%D0%BE%D0%BD%D1%87%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss3"
+    },
+    {
+      "number": 9,
+      "title": "HTTP и первый endpoint",
+      "phase": "p2",
+      "aiPhase": "ai2",
+      "topic": "Методы, статусы, заголовки; routing ASP.NET Core",
+      "ai": "Агент, обычная функция и workflow: выбрать подход для трёх задач",
+      "deliverable": "Создать GET /tasks и POST /tasks с DTO",
+      "tasks": [
+        {
+          "id": "w9-core",
+          "title": "Методы, статусы, заголовки; routing ASP.NET Core",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p2"
+        },
+        {
+          "id": "w9-ai",
+          "title": "Агент, обычная функция и workflow: выбрать подход для трёх задач",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai2"
+        },
+        {
+          "id": "w9-project",
+          "title": "Создать GET /tasks и POST /tasks с DTO",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p2"
+        },
+        {
+          "id": "w9-soft",
+          "title": "Делить большую задачу на небольшие части, фиксировать допущения и заранее сообщать о блокерах.",
+          "kind": "soft",
+          "label": "Оценка и организация",
+          "minutes": 30,
+          "phase": "p2"
+        },
+        {
+          "id": "w9-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p2"
+        }
+      ],
+      "videos": [
+        "api-a",
+        "api-b",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=HTTP%20%D0%B8%20%D0%BF%D0%B5%D1%80%D0%B2%D1%8B%D0%B9%20endpoint%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss4"
+    },
+    {
+      "number": 10,
+      "title": "Middleware и валидация",
+      "phase": "p2",
+      "aiPhase": "ai2",
+      "topic": "Pipeline, DI, ProblemDetails и обработка ошибок",
+      "ai": "Описать типизированный инструмент поиска задачи по ID",
+      "deliverable": "Добавить валидацию запроса и единый формат ошибок",
+      "tasks": [
+        {
+          "id": "w10-core",
+          "title": "Pipeline, DI, ProblemDetails и обработка ошибок",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p2"
+        },
+        {
+          "id": "w10-ai",
+          "title": "Описать типизированный инструмент поиска задачи по ID",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai2"
+        },
+        {
+          "id": "w10-project",
+          "title": "Добавить валидацию запроса и единый формат ошибок",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p2"
+        },
+        {
+          "id": "w10-soft",
+          "title": "Вести заметки: проблема, причина, варианты, решение, компромиссы; раз в месяц показывать проект.",
+          "kind": "soft",
+          "label": "Рефлексия и обучение",
+          "minutes": 30,
+          "phase": "p2"
+        },
+        {
+          "id": "w10-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p2"
+        }
+      ],
+      "videos": [
+        "api-a",
+        "api-b",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=Middleware%20%D0%B8%20%D0%B2%D0%B0%D0%BB%D0%B8%D0%B4%D0%B0%D1%86%D0%B8%D1%8F%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss5"
+    },
+    {
+      "number": 11,
+      "title": "Пагинация и доступ",
+      "phase": "p2",
+      "aiPhase": "ai2",
+      "topic": "Фильтрация; authentication и authorization; границы доступа",
+      "ai": "Сделать агента с одним read-only инструментом",
+      "deliverable": "Добавить пагинацию и проверку прав на чтение задачи",
+      "tasks": [
+        {
+          "id": "w11-core",
+          "title": "Фильтрация; authentication и authorization; границы доступа",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p2"
+        },
+        {
+          "id": "w11-ai",
+          "title": "Сделать агента с одним read-only инструментом",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai2"
+        },
+        {
+          "id": "w11-project",
+          "title": "Добавить пагинацию и проверку прав на чтение задачи",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p2"
+        },
+        {
+          "id": "w11-soft",
+          "title": "Раз в неделю объяснить за 3-5 минут: что сделано, почему выбран вариант, какие альтернативы.",
+          "kind": "soft",
+          "label": "Техническая коммуникация",
+          "minutes": 30,
+          "phase": "p2"
+        },
+        {
+          "id": "w11-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p2"
+        }
+      ],
+      "videos": [
+        "api-a",
+        "api-b",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9F%D0%B0%D0%B3%D0%B8%D0%BD%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss1"
+    },
+    {
+      "number": 12,
+      "title": "EF Core и интеграционный тест",
+      "phase": "p2",
+      "aiPhase": "ai2",
+      "topic": "DbContext, миграции и тест HTTP + БД",
+      "ai": "Проверить ошибку инструмента и неизвестный ID",
+      "deliverable": "Подключить PostgreSQL; проверить создание задачи через HTTP",
+      "tasks": [
+        {
+          "id": "w12-core",
+          "title": "DbContext, миграции и тест HTTP + БД",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p2"
+        },
+        {
+          "id": "w12-ai",
+          "title": "Проверить ошибку инструмента и неизвестный ID",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai2"
+        },
+        {
+          "id": "w12-project",
+          "title": "Подключить PostgreSQL; проверить создание задачи через HTTP",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p2"
+        },
+        {
+          "id": "w12-soft",
+          "title": "Проверять корректность, границы, тесты и безопасность; описывать проблему и влияние, а не личность автора.",
+          "kind": "soft",
+          "label": "Code review и обратная связь",
+          "minutes": 30,
+          "phase": "p2"
+        },
+        {
+          "id": "w12-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p2"
+        }
+      ],
+      "videos": [
+        "testing",
+        "integration",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=EF%20Core%20%D0%B8%20%D0%B8%D0%BD%D1%82%D0%B5%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B9%20%D1%82%D0%B5%D1%81%D1%82%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss2"
+    },
+    {
+      "number": 13,
+      "title": "SQL: связи и ограничения",
+      "phase": "p3",
+      "aiPhase": "ai2",
+      "topic": "PRIMARY KEY, FOREIGN KEY, NOT NULL; нормализация",
+      "ai": "Разрешить только два безопасных инструмента агента",
+      "deliverable": "Описать схему задач, заметок и пользователей с ограничениями",
+      "tasks": [
+        {
+          "id": "w13-core",
+          "title": "PRIMARY KEY, FOREIGN KEY, NOT NULL; нормализация",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p3"
+        },
+        {
+          "id": "w13-ai",
+          "title": "Разрешить только два безопасных инструмента агента",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai2"
+        },
+        {
+          "id": "w13-project",
+          "title": "Описать схему задач, заметок и пользователей с ограничениями",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p3"
+        },
+        {
+          "id": "w13-soft",
+          "title": "Перед задачей записывать цель, happy path, edge cases, критерии готовности и вопросы к заказчику.",
+          "kind": "soft",
+          "label": "Работа с требованиями",
+          "minutes": 30,
+          "phase": "p3"
+        },
+        {
+          "id": "w13-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p3"
+        }
+      ],
+      "videos": [
+        "pg-ru",
+        "pg-en",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=SQL%3A%20%D1%81%D0%B2%D1%8F%D0%B7%D0%B8%20%D0%B8%20%D0%BE%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss3"
+    },
+    {
+      "number": 14,
+      "title": "JOIN и отчёты",
+      "phase": "p3",
+      "aiPhase": "ai2",
+      "topic": "INNER / LEFT JOIN, подзапросы и агрегаты",
+      "ai": "Проверить аргументы инструмента до выполнения",
+      "deliverable": "Написать три отчёта по задачам и количеству заметок",
+      "tasks": [
+        {
+          "id": "w14-core",
+          "title": "INNER / LEFT JOIN, подзапросы и агрегаты",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p3"
+        },
+        {
+          "id": "w14-ai",
+          "title": "Проверить аргументы инструмента до выполнения",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai2"
+        },
+        {
+          "id": "w14-project",
+          "title": "Написать три отчёта по задачам и количеству заметок",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p3"
+        },
+        {
+          "id": "w14-soft",
+          "title": "Делить большую задачу на небольшие части, фиксировать допущения и заранее сообщать о блокерах.",
+          "kind": "soft",
+          "label": "Оценка и организация",
+          "minutes": 30,
+          "phase": "p3"
+        },
+        {
+          "id": "w14-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p3"
+        }
+      ],
+      "videos": [
+        "pg-ru",
+        "pg-en",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=JOIN%20%D0%B8%20%D0%BE%D1%82%D1%87%D1%91%D1%82%D1%8B%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss4"
+    },
+    {
+      "number": 15,
+      "title": "CTE и оконные функции",
+      "phase": "p3",
+      "aiPhase": "ai2",
+      "topic": "WITH, ROW_NUMBER, PARTITION BY; сравнить запросы",
+      "ai": "Добавить multi-turn диалог с ограничением истории",
+      "deliverable": "Написать ещё пять запросов, включая ранжирование задач",
+      "tasks": [
+        {
+          "id": "w15-core",
+          "title": "WITH, ROW_NUMBER, PARTITION BY; сравнить запросы",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p3"
+        },
+        {
+          "id": "w15-ai",
+          "title": "Добавить multi-turn диалог с ограничением истории",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai2"
+        },
+        {
+          "id": "w15-project",
+          "title": "Написать ещё пять запросов, включая ранжирование задач",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p3"
+        },
+        {
+          "id": "w15-soft",
+          "title": "Вести заметки: проблема, причина, варианты, решение, компромиссы; раз в месяц показывать проект.",
+          "kind": "soft",
+          "label": "Рефлексия и обучение",
+          "minutes": 30,
+          "phase": "p3"
+        },
+        {
+          "id": "w15-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p3"
+        }
+      ],
+      "videos": [
+        "pg-ru",
+        "pg-en",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=CTE%20%D0%B8%20%D0%BE%D0%BA%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss5"
+    },
+    {
+      "number": 16,
+      "title": "Транзакции и конкуренция",
+      "phase": "p3",
+      "aiPhase": "ai2",
+      "topic": "Изоляция, блокировки; воспроизвести потерянное обновление",
+      "ai": "Сохранить состояние диалога отдельно от бизнес-данных",
+      "deliverable": "Сделать атомарное обновление задачи и журнала изменений",
+      "tasks": [
+        {
+          "id": "w16-core",
+          "title": "Изоляция, блокировки; воспроизвести потерянное обновление",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p3"
+        },
+        {
+          "id": "w16-ai",
+          "title": "Сохранить состояние диалога отдельно от бизнес-данных",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai2"
+        },
+        {
+          "id": "w16-project",
+          "title": "Сделать атомарное обновление задачи и журнала изменений",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p3"
+        },
+        {
+          "id": "w16-soft",
+          "title": "Раз в неделю объяснить за 3-5 минут: что сделано, почему выбран вариант, какие альтернативы.",
+          "kind": "soft",
+          "label": "Техническая коммуникация",
+          "minutes": 30,
+          "phase": "p3"
+        },
+        {
+          "id": "w16-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p3"
+        }
+      ],
+      "videos": [
+        "pg-ru",
+        "pg-en",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%A2%D1%80%D0%B0%D0%BD%D0%B7%D0%B0%D0%BA%D1%86%D0%B8%D0%B8%20%D0%B8%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D0%B5%D0%BD%D1%86%D0%B8%D1%8F%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss1"
+    },
+    {
+      "number": 17,
+      "title": "Планы выполнения",
+      "phase": "p3",
+      "aiPhase": "ai3",
+      "topic": "EXPLAIN ANALYZE; измерения на реалистичных данных",
+      "ai": "Embeddings и similarity search: сравнить с ключевыми словами",
+      "deliverable": "Снять план медленного отчёта на большом наборе данных",
+      "tasks": [
+        {
+          "id": "w17-core",
+          "title": "EXPLAIN ANALYZE; измерения на реалистичных данных",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p3"
+        },
+        {
+          "id": "w17-ai",
+          "title": "Embeddings и similarity search: сравнить с ключевыми словами",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai3"
+        },
+        {
+          "id": "w17-project",
+          "title": "Снять план медленного отчёта на большом наборе данных",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p3"
+        },
+        {
+          "id": "w17-soft",
+          "title": "Проверять корректность, границы, тесты и безопасность; описывать проблему и влияние, а не личность автора.",
+          "kind": "soft",
+          "label": "Code review и обратная связь",
+          "minutes": 30,
+          "phase": "p3"
+        },
+        {
+          "id": "w17-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p3"
+        }
+      ],
+      "videos": [
+        "indexes",
+        "pg-plans",
+        "rag"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9F%D0%BB%D0%B0%D0%BD%D1%8B%20%D0%B2%D1%8B%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss2"
+    },
+    {
+      "number": 18,
+      "title": "Индексы с измеримым эффектом",
+      "phase": "p3",
+      "aiPhase": "ai3",
+      "topic": "B-tree, составные и частичные индексы; цена записи",
+      "ai": "Выбрать формат документов и метаданные источника",
+      "deliverable": "Добавить индекс по плану и записать результаты до / после",
+      "tasks": [
+        {
+          "id": "w18-core",
+          "title": "B-tree, составные и частичные индексы; цена записи",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p3"
+        },
+        {
+          "id": "w18-ai",
+          "title": "Выбрать формат документов и метаданные источника",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai3"
+        },
+        {
+          "id": "w18-project",
+          "title": "Добавить индекс по плану и записать результаты до / после",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p3"
+        },
+        {
+          "id": "w18-soft",
+          "title": "Перед задачей записывать цель, happy path, edge cases, критерии готовности и вопросы к заказчику.",
+          "kind": "soft",
+          "label": "Работа с требованиями",
+          "minutes": 30,
+          "phase": "p3"
+        },
+        {
+          "id": "w18-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p3"
+        }
+      ],
+      "videos": [
+        "indexes",
+        "pg-plans",
+        "rag"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%98%D0%BD%D0%B4%D0%B5%D0%BA%D1%81%D1%8B%20%D1%81%20%D0%B8%D0%B7%D0%BC%D0%B5%D1%80%D0%B8%D0%BC%D1%8B%D0%BC%20%D1%8D%D1%84%D1%84%D0%B5%D0%BA%D1%82%D0%BE%D0%BC%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss3"
+    },
+    {
+      "number": 19,
+      "title": "EF Core без N+1",
+      "phase": "p3",
+      "aiPhase": "ai3",
+      "topic": "Проекции, AsNoTracking и лишние round trips",
+      "ai": "Разбить три технических документа на фрагменты",
+      "deliverable": "Устранить N+1 и добавить проверку числа запросов",
+      "tasks": [
+        {
+          "id": "w19-core",
+          "title": "Проекции, AsNoTracking и лишние round trips",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p3"
+        },
+        {
+          "id": "w19-ai",
+          "title": "Разбить три технических документа на фрагменты",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai3"
+        },
+        {
+          "id": "w19-project",
+          "title": "Устранить N+1 и добавить проверку числа запросов",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p3"
+        },
+        {
+          "id": "w19-soft",
+          "title": "Делить большую задачу на небольшие части, фиксировать допущения и заранее сообщать о блокерах.",
+          "kind": "soft",
+          "label": "Оценка и организация",
+          "minutes": 30,
+          "phase": "p3"
+        },
+        {
+          "id": "w19-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p3"
+        }
+      ],
+      "videos": [
+        "indexes",
+        "pg-plans",
+        "rag"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=EF%20Core%20%D0%B1%D0%B5%D0%B7%20N%2B1%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss4"
+    },
+    {
+      "number": 20,
+      "title": "Git и небольшие изменения",
+      "phase": "p4",
+      "aiPhase": "ai3",
+      "topic": "Ветки, PR, конфликты; границы архитектуры",
+      "ai": "Сохранить embeddings и метаданные в PostgreSQL / pgvector",
+      "deliverable": "Оформить небольшой PR с SQL-отчётом и обоснованием индекса",
+      "tasks": [
+        {
+          "id": "w20-core",
+          "title": "Ветки, PR, конфликты; границы архитектуры",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p4"
+        },
+        {
+          "id": "w20-ai",
+          "title": "Сохранить embeddings и метаданные в PostgreSQL / pgvector",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai3"
+        },
+        {
+          "id": "w20-project",
+          "title": "Оформить небольшой PR с SQL-отчётом и обоснованием индекса",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p4"
+        },
+        {
+          "id": "w20-soft",
+          "title": "Вести заметки: проблема, причина, варианты, решение, компромиссы; раз в месяц показывать проект.",
+          "kind": "soft",
+          "label": "Рефлексия и обучение",
+          "minutes": 30,
+          "phase": "p4"
+        },
+        {
+          "id": "w20-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p4"
+        }
+      ],
+      "videos": [
+        "docker-a",
+        "docker-b",
+        "rag"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=Git%20%D0%B8%20%D0%BD%D0%B5%D0%B1%D0%BE%D0%BB%D1%8C%D1%88%D0%B8%D0%B5%20%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss5"
+    },
+    {
+      "number": 21,
+      "title": "Docker Compose",
+      "phase": "p4",
+      "aiPhase": "ai3",
+      "topic": "Образы, контейнеры, volumes; конфигурация окружения",
+      "ai": "Реализовать поиск релевантных фрагментов",
+      "deliverable": "Поднять API и PostgreSQL одной командой compose",
+      "tasks": [
+        {
+          "id": "w21-core",
+          "title": "Образы, контейнеры, volumes; конфигурация окружения",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p4"
+        },
+        {
+          "id": "w21-ai",
+          "title": "Реализовать поиск релевантных фрагментов",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai3"
+        },
+        {
+          "id": "w21-project",
+          "title": "Поднять API и PostgreSQL одной командой compose",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p4"
+        },
+        {
+          "id": "w21-soft",
+          "title": "Раз в неделю объяснить за 3-5 минут: что сделано, почему выбран вариант, какие альтернативы.",
+          "kind": "soft",
+          "label": "Техническая коммуникация",
+          "minutes": 30,
+          "phase": "p4"
+        },
+        {
+          "id": "w21-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p4"
+        }
+      ],
+      "videos": [
+        "docker-a",
+        "docker-b",
+        "rag"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=Docker%20Compose%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss1"
+    },
+    {
+      "number": 22,
+      "title": "CI на GitHub Actions",
+      "phase": "p4",
+      "aiPhase": "ai3",
+      "topic": "restore, build, test; секреты и воспроизводимость",
+      "ai": "Добавить источники к ответу по найденному контексту",
+      "deliverable": "Собрать workflow проверки каждого push и PR",
+      "tasks": [
+        {
+          "id": "w22-core",
+          "title": "restore, build, test; секреты и воспроизводимость",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p4"
+        },
+        {
+          "id": "w22-ai",
+          "title": "Добавить источники к ответу по найденному контексту",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai3"
+        },
+        {
+          "id": "w22-project",
+          "title": "Собрать workflow проверки каждого push и PR",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p4"
+        },
+        {
+          "id": "w22-soft",
+          "title": "Проверять корректность, границы, тесты и безопасность; описывать проблему и влияние, а не личность автора.",
+          "kind": "soft",
+          "label": "Code review и обратная связь",
+          "minutes": 30,
+          "phase": "p4"
+        },
+        {
+          "id": "w22-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p4"
+        }
+      ],
+      "videos": [
+        "docker-a",
+        "docker-b",
+        "rag"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=CI%20%D0%BD%D0%B0%20GitHub%20Actions%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss2"
+    },
+    {
+      "number": 23,
+      "title": "Диагностика и health checks",
+      "phase": "p4",
+      "aiPhase": "ai3",
+      "topic": "Структурированные логи, correlation ID и readiness",
+      "ai": "Проверить retrieval на 10 эталонных вопросах",
+      "deliverable": "Добавить health check и диагностировать ошибку по логам",
+      "tasks": [
+        {
+          "id": "w23-core",
+          "title": "Структурированные логи, correlation ID и readiness",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p4"
+        },
+        {
+          "id": "w23-ai",
+          "title": "Проверить retrieval на 10 эталонных вопросах",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai3"
+        },
+        {
+          "id": "w23-project",
+          "title": "Добавить health check и диагностировать ошибку по логам",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p4"
+        },
+        {
+          "id": "w23-soft",
+          "title": "Перед задачей записывать цель, happy path, edge cases, критерии готовности и вопросы к заказчику.",
+          "kind": "soft",
+          "label": "Работа с требованиями",
+          "minutes": 30,
+          "phase": "p4"
+        },
+        {
+          "id": "w23-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p4"
+        }
+      ],
+      "videos": [
+        "observability",
+        "otel",
+        "rag"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%94%D0%B8%D0%B0%D0%B3%D0%BD%D0%BE%D1%81%D1%82%D0%B8%D0%BA%D0%B0%20%D0%B8%20health%20checks%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss3"
+    },
+    {
+      "number": 24,
+      "title": "Рефакторинг и качество RAG",
+      "phase": "p4",
+      "aiPhase": "ai3",
+      "topic": "Integration tests; ретраи и идемпотентность",
+      "ai": "Применять фильтры доступа до отправки контекста модели",
+      "deliverable": "Зафиксировать архитектуру, 20 вопросов оценки и запуск с нуля",
+      "tasks": [
+        {
+          "id": "w24-core",
+          "title": "Integration tests; ретраи и идемпотентность",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p4"
+        },
+        {
+          "id": "w24-ai",
+          "title": "Применять фильтры доступа до отправки контекста модели",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai3"
+        },
+        {
+          "id": "w24-project",
+          "title": "Зафиксировать архитектуру, 20 вопросов оценки и запуск с нуля",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p4"
+        },
+        {
+          "id": "w24-soft",
+          "title": "Делить большую задачу на небольшие части, фиксировать допущения и заранее сообщать о блокерах.",
+          "kind": "soft",
+          "label": "Оценка и организация",
+          "minutes": 30,
+          "phase": "p4"
+        },
+        {
+          "id": "w24-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p4"
+        }
+      ],
+      "videos": [
+        "testing",
+        "integration",
+        "rag"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%A0%D0%B5%D1%84%D0%B0%D0%BA%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3%20%D0%B8%20%D0%BA%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE%20RAG%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss4"
+    },
+    {
+      "number": 25,
+      "title": "Workflow как явный код",
+      "phase": "ai4",
+      "aiPhase": "ai4",
+      "topic": "Выделить границы этапов и DTO результатов",
+      "ai": "Последовательность: классификация → поиск → черновик",
+      "deliverable": "Создать workflow с типизированным результатом каждого шага",
+      "tasks": [
+        {
+          "id": "w25-core",
+          "title": "Выделить границы этапов и DTO результатов",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "ai4"
+        },
+        {
+          "id": "w25-ai",
+          "title": "Последовательность: классификация → поиск → черновик",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai4"
+        },
+        {
+          "id": "w25-project",
+          "title": "Создать workflow с типизированным результатом каждого шага",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "ai4"
+        },
+        {
+          "id": "w25-soft",
+          "title": "Вести заметки: проблема, причина, варианты, решение, компромиссы; раз в месяц показывать проект.",
+          "kind": "soft",
+          "label": "Рефлексия и обучение",
+          "minutes": 30,
+          "phase": "ai4"
+        },
+        {
+          "id": "w25-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "ai4"
+        }
+      ],
+      "videos": [
+        "agent-a",
+        "agent-b",
+        "ai-base"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=Workflow%20%D0%BA%D0%B0%D0%BA%20%D1%8F%D0%B2%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D0%B4%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss5"
+    },
+    {
+      "number": 26,
+      "title": "Состояния и переходы",
+      "phase": "ai4",
+      "aiPhase": "ai4",
+      "topic": "Машина состояний; допустимые и ошибочные переходы",
+      "ai": "Сохранять состояние и причину остановки workflow",
+      "deliverable": "Сделать переходы draft → reviewed → approved",
+      "tasks": [
+        {
+          "id": "w26-core",
+          "title": "Машина состояний; допустимые и ошибочные переходы",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "ai4"
+        },
+        {
+          "id": "w26-ai",
+          "title": "Сохранять состояние и причину остановки workflow",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai4"
+        },
+        {
+          "id": "w26-project",
+          "title": "Сделать переходы draft → reviewed → approved",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "ai4"
+        },
+        {
+          "id": "w26-soft",
+          "title": "Раз в неделю объяснить за 3-5 минут: что сделано, почему выбран вариант, какие альтернативы.",
+          "kind": "soft",
+          "label": "Техническая коммуникация",
+          "minutes": 30,
+          "phase": "ai4"
+        },
+        {
+          "id": "w26-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "ai4"
+        }
+      ],
+      "videos": [
+        "agent-a",
+        "agent-b",
+        "ai-base"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%A1%D0%BE%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D0%B5%D1%80%D0%B5%D1%85%D0%BE%D0%B4%D1%8B%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss1"
+    },
+    {
+      "number": 27,
+      "title": "Одобрение действий",
+      "phase": "ai4",
+      "aiPhase": "ai4",
+      "topic": "Разделить read-only и изменяющие операции",
+      "ai": "Human-in-the-loop перед записью данных",
+      "deliverable": "Добавить подтверждение перед изменением задачи агентом",
+      "tasks": [
+        {
+          "id": "w27-core",
+          "title": "Разделить read-only и изменяющие операции",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "ai4"
+        },
+        {
+          "id": "w27-ai",
+          "title": "Human-in-the-loop перед записью данных",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai4"
+        },
+        {
+          "id": "w27-project",
+          "title": "Добавить подтверждение перед изменением задачи агентом",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "ai4"
+        },
+        {
+          "id": "w27-soft",
+          "title": "Проверять корректность, границы, тесты и безопасность; описывать проблему и влияние, а не личность автора.",
+          "kind": "soft",
+          "label": "Code review и обратная связь",
+          "minutes": 30,
+          "phase": "ai4"
+        },
+        {
+          "id": "w27-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "ai4"
+        }
+      ],
+      "videos": [
+        "agent-a",
+        "agent-b",
+        "ai-base"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9E%D0%B4%D0%BE%D0%B1%D1%80%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B9%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss2"
+    },
+    {
+      "number": 28,
+      "title": "Ограниченный параллелизм",
+      "phase": "ai4",
+      "aiPhase": "ai4",
+      "topic": "Task.WhenAll, отмена и ограничение числа операций",
+      "ai": "Сравнить последовательный и параллельный поиск",
+      "deliverable": "Ограничить конкурентные операции и измерить задержку",
+      "tasks": [
+        {
+          "id": "w28-core",
+          "title": "Task.WhenAll, отмена и ограничение числа операций",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "ai4"
+        },
+        {
+          "id": "w28-ai",
+          "title": "Сравнить последовательный и параллельный поиск",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai4"
+        },
+        {
+          "id": "w28-project",
+          "title": "Ограничить конкурентные операции и измерить задержку",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "ai4"
+        },
+        {
+          "id": "w28-soft",
+          "title": "Перед задачей записывать цель, happy path, edge cases, критерии готовности и вопросы к заказчику.",
+          "kind": "soft",
+          "label": "Работа с требованиями",
+          "minutes": 30,
+          "phase": "ai4"
+        },
+        {
+          "id": "w28-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "ai4"
+        }
+      ],
+      "videos": [
+        "agent-a",
+        "agent-b",
+        "ai-base"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9E%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%D1%87%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BB%D0%BB%D0%B5%D0%BB%D0%B8%D0%B7%D0%BC%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss3"
+    },
+    {
+      "number": 29,
+      "title": "Ретраи без дублирования",
+      "phase": "ai4",
+      "aiPhase": "ai4",
+      "topic": "Transient faults, backoff и ключ идемпотентности",
+      "ai": "Ограничить число шагов и повторных вызовов модели",
+      "deliverable": "Сделать безопасный повтор шага без двойной записи",
+      "tasks": [
+        {
+          "id": "w29-core",
+          "title": "Transient faults, backoff и ключ идемпотентности",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "ai4"
+        },
+        {
+          "id": "w29-ai",
+          "title": "Ограничить число шагов и повторных вызовов модели",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai4"
+        },
+        {
+          "id": "w29-project",
+          "title": "Сделать безопасный повтор шага без двойной записи",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "ai4"
+        },
+        {
+          "id": "w29-soft",
+          "title": "Делить большую задачу на небольшие части, фиксировать допущения и заранее сообщать о блокерах.",
+          "kind": "soft",
+          "label": "Оценка и организация",
+          "minutes": 30,
+          "phase": "ai4"
+        },
+        {
+          "id": "w29-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "ai4"
+        }
+      ],
+      "videos": [
+        "agent-a",
+        "agent-b",
+        "ai-base"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%A0%D0%B5%D1%82%D1%80%D0%B0%D0%B8%20%D0%B1%D0%B5%D0%B7%20%D0%B4%D1%83%D0%B1%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss4"
+    },
+    {
+      "number": 30,
+      "title": "Prompt injection",
+      "phase": "ai4",
+      "aiPhase": "ai4",
+      "topic": "Доверенные инструкции и недоверенные документы",
+      "ai": "Подготовить документы с вредоносными инструкциями для теста",
+      "deliverable": "Проверить, что документ не расширяет права инструментов",
+      "tasks": [
+        {
+          "id": "w30-core",
+          "title": "Доверенные инструкции и недоверенные документы",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "ai4"
+        },
+        {
+          "id": "w30-ai",
+          "title": "Подготовить документы с вредоносными инструкциями для теста",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai4"
+        },
+        {
+          "id": "w30-project",
+          "title": "Проверить, что документ не расширяет права инструментов",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "ai4"
+        },
+        {
+          "id": "w30-soft",
+          "title": "Вести заметки: проблема, причина, варианты, решение, компромиссы; раз в месяц показывать проект.",
+          "kind": "soft",
+          "label": "Рефлексия и обучение",
+          "minutes": 30,
+          "phase": "ai4"
+        },
+        {
+          "id": "w30-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "ai4"
+        }
+      ],
+      "videos": [
+        "agent-a",
+        "agent-b",
+        "ai-base"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=Prompt%20injection%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss5"
+    },
+    {
+      "number": 31,
+      "title": "Наблюдаемость workflow",
+      "phase": "ai4",
+      "aiPhase": "ai4",
+      "topic": "Логи шагов, длительность, ошибки и аудит",
+      "ai": "Сравнить agent workflow с обычной функцией",
+      "deliverable": "Добавить журнал шагов и отчёт по стоимости сценария",
+      "tasks": [
+        {
+          "id": "w31-core",
+          "title": "Логи шагов, длительность, ошибки и аудит",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "ai4"
+        },
+        {
+          "id": "w31-ai",
+          "title": "Сравнить agent workflow с обычной функцией",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai4"
+        },
+        {
+          "id": "w31-project",
+          "title": "Добавить журнал шагов и отчёт по стоимости сценария",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "ai4"
+        },
+        {
+          "id": "w31-soft",
+          "title": "Раз в неделю объяснить за 3-5 минут: что сделано, почему выбран вариант, какие альтернативы.",
+          "kind": "soft",
+          "label": "Техническая коммуникация",
+          "minutes": 30,
+          "phase": "ai4"
+        },
+        {
+          "id": "w31-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "ai4"
+        }
+      ],
+      "videos": [
+        "agent-a",
+        "agent-b",
+        "ai-base"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9D%D0%B0%D0%B1%D0%BB%D1%8E%D0%B4%D0%B0%D0%B5%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20workflow%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss1"
+    },
+    {
+      "number": 32,
+      "title": "Демонстрация оркестрации",
+      "phase": "ai4",
+      "aiPhase": "ai4",
+      "topic": "Сценарии отказа и проверка восстановления",
+      "ai": "Прогнать эталонные запросы и отказ инструмента",
+      "deliverable": "Показать end-to-end workflow с подтверждением пользователя",
+      "tasks": [
+        {
+          "id": "w32-core",
+          "title": "Сценарии отказа и проверка восстановления",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "ai4"
+        },
+        {
+          "id": "w32-ai",
+          "title": "Прогнать эталонные запросы и отказ инструмента",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "ai4"
+        },
+        {
+          "id": "w32-project",
+          "title": "Показать end-to-end workflow с подтверждением пользователя",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "ai4"
+        },
+        {
+          "id": "w32-soft",
+          "title": "Проверять корректность, границы, тесты и безопасность; описывать проблему и влияние, а не личность автора.",
+          "kind": "soft",
+          "label": "Code review и обратная связь",
+          "minutes": 30,
+          "phase": "ai4"
+        },
+        {
+          "id": "w32-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "ai4"
+        }
+      ],
+      "videos": [
+        "agent-a",
+        "agent-b",
+        "ai-base"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%94%D0%B5%D0%BC%D0%BE%D0%BD%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F%20%D0%BE%D1%80%D0%BA%D0%B5%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D0%B8%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss2"
+    },
+    {
+      "number": 33,
+      "title": "Матрица регрессии",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Ключевые сценарии API и матрица рисков",
+      "ai": "Собрать набор эталонных AI-запросов",
+      "deliverable": "Зафиксировать regression suite для задач, заметок и поиска",
+      "tasks": [
+        {
+          "id": "w33-core",
+          "title": "Ключевые сценарии API и матрица рисков",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w33-ai",
+          "title": "Собрать набор эталонных AI-запросов",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w33-project",
+          "title": "Зафиксировать regression suite для задач, заметок и поиска",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w33-soft",
+          "title": "Перед задачей записывать цель, happy path, edge cases, критерии готовности и вопросы к заказчику.",
+          "kind": "soft",
+          "label": "Работа с требованиями",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w33-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "testing",
+        "integration",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%20%D1%80%D0%B5%D0%B3%D1%80%D0%B5%D1%81%D1%81%D0%B8%D0%B8%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss3"
+    },
+    {
+      "number": 34,
+      "title": "Integration tests без случайности",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Изоляция БД, фикстуры и детерминированные данные",
+      "ai": "Подменить модель предсказуемым fake-провайдером",
+      "deliverable": "Стабилизировать интеграционные тесты без внешнего LLM",
+      "tasks": [
+        {
+          "id": "w34-core",
+          "title": "Изоляция БД, фикстуры и детерминированные данные",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w34-ai",
+          "title": "Подменить модель предсказуемым fake-провайдером",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w34-project",
+          "title": "Стабилизировать интеграционные тесты без внешнего LLM",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w34-soft",
+          "title": "Делить большую задачу на небольшие части, фиксировать допущения и заранее сообщать о блокерах.",
+          "kind": "soft",
+          "label": "Оценка и организация",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w34-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "testing",
+        "integration",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=Integration%20tests%20%D0%B1%D0%B5%D0%B7%20%D1%81%D0%BB%D1%83%D1%87%D0%B0%D0%B9%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss4"
+    },
+    {
+      "number": 35,
+      "title": "Измерение задержки",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Метрики p50/p95 и узкие места API",
+      "ai": "Измерить retrieval отдельно от генерации",
+      "deliverable": "Снять базовые показатели latency и оформить отчёт",
+      "tasks": [
+        {
+          "id": "w35-core",
+          "title": "Метрики p50/p95 и узкие места API",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w35-ai",
+          "title": "Измерить retrieval отдельно от генерации",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w35-project",
+          "title": "Снять базовые показатели latency и оформить отчёт",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w35-soft",
+          "title": "Вести заметки: проблема, причина, варианты, решение, компромиссы; раз в месяц показывать проект.",
+          "kind": "soft",
+          "label": "Рефлексия и обучение",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w35-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "observability",
+        "otel",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%98%D0%B7%D0%BC%D0%B5%D1%80%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B8%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss5"
+    },
+    {
+      "number": 36,
+      "title": "Доступ и аудит",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Авторизация на уровне ресурса и журнал действий",
+      "ai": "Проверить невозможность доступа к чужим документам",
+      "deliverable": "Добавить тесты изоляции данных и события аудита",
+      "tasks": [
+        {
+          "id": "w36-core",
+          "title": "Авторизация на уровне ресурса и журнал действий",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w36-ai",
+          "title": "Проверить невозможность доступа к чужим документам",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w36-project",
+          "title": "Добавить тесты изоляции данных и события аудита",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w36-soft",
+          "title": "Раз в неделю объяснить за 3-5 минут: что сделано, почему выбран вариант, какие альтернативы.",
+          "kind": "soft",
+          "label": "Техническая коммуникация",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w36-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "observability",
+        "otel",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%20%D0%B8%20%D0%B0%D1%83%D0%B4%D0%B8%D1%82%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss1"
+    },
+    {
+      "number": 37,
+      "title": "Отказ базы данных",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Timeouts, недоступность БД и восстановление",
+      "ai": "Описать ответ ассистента, если retrieval недоступен",
+      "deliverable": "Протестировать отказ PostgreSQL и понятную ошибку API",
+      "tasks": [
+        {
+          "id": "w37-core",
+          "title": "Timeouts, недоступность БД и восстановление",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w37-ai",
+          "title": "Описать ответ ассистента, если retrieval недоступен",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w37-project",
+          "title": "Протестировать отказ PostgreSQL и понятную ошибку API",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w37-soft",
+          "title": "Проверять корректность, границы, тесты и безопасность; описывать проблему и влияние, а не личность автора.",
+          "kind": "soft",
+          "label": "Code review и обратная связь",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w37-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "observability",
+        "otel",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9E%D1%82%D0%BA%D0%B0%D0%B7%20%D0%B1%D0%B0%D0%B7%D1%8B%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss2"
+    },
+    {
+      "number": 38,
+      "title": "Отказ провайдера модели",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Деградация и ограничение длительности запроса",
+      "ai": "Обработать rate limit, timeout и невалидный JSON",
+      "deliverable": "Вернуть безопасный fallback без потери основной функции",
+      "tasks": [
+        {
+          "id": "w38-core",
+          "title": "Деградация и ограничение длительности запроса",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w38-ai",
+          "title": "Обработать rate limit, timeout и невалидный JSON",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w38-project",
+          "title": "Вернуть безопасный fallback без потери основной функции",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w38-soft",
+          "title": "Перед задачей записывать цель, happy path, edge cases, критерии готовности и вопросы к заказчику.",
+          "kind": "soft",
+          "label": "Работа с требованиями",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w38-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "observability",
+        "otel",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9E%D1%82%D0%BA%D0%B0%D0%B7%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B0%D0%B9%D0%B4%D0%B5%D1%80%D0%B0%20%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss3"
+    },
+    {
+      "number": 39,
+      "title": "Бюджеты и ограничения",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Ограничение запросов; конфигурация лимитов",
+      "ai": "Посчитать токены и ограничить контекст и стоимость",
+      "deliverable": "Добавить тест превышения лимита и наблюдаемое сообщение",
+      "tasks": [
+        {
+          "id": "w39-core",
+          "title": "Ограничение запросов; конфигурация лимитов",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w39-ai",
+          "title": "Посчитать токены и ограничить контекст и стоимость",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w39-project",
+          "title": "Добавить тест превышения лимита и наблюдаемое сообщение",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w39-soft",
+          "title": "Делить большую задачу на небольшие части, фиксировать допущения и заранее сообщать о блокерах.",
+          "kind": "soft",
+          "label": "Оценка и организация",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w39-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "observability",
+        "otel",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%91%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%D1%8B%20%D0%B8%20%D0%BE%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss4"
+    },
+    {
+      "number": 40,
+      "title": "Диагностика полного запроса",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Связать API, БД и инструменты через trace ID",
+      "ai": "Логировать метаданные, исключая чувствительный текст",
+      "deliverable": "Проследить запрос от endpoint до AI-ответа по журналу",
+      "tasks": [
+        {
+          "id": "w40-core",
+          "title": "Связать API, БД и инструменты через trace ID",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w40-ai",
+          "title": "Логировать метаданные, исключая чувствительный текст",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w40-project",
+          "title": "Проследить запрос от endpoint до AI-ответа по журналу",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w40-soft",
+          "title": "Вести заметки: проблема, причина, варианты, решение, компромиссы; раз в месяц показывать проект.",
+          "kind": "soft",
+          "label": "Рефлексия и обучение",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w40-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "observability",
+        "otel",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%94%D0%B8%D0%B0%D0%B3%D0%BD%D0%BE%D1%81%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BF%D0%BE%D0%BB%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss5"
+    },
+    {
+      "number": 41,
+      "title": "Качество поиска",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Точность и полнота на фиксированной выборке",
+      "ai": "Сравнить chunk size и top-k на одном наборе вопросов",
+      "deliverable": "Зафиксировать baseline retrieval и одну проверенную доработку",
+      "tasks": [
+        {
+          "id": "w41-core",
+          "title": "Точность и полнота на фиксированной выборке",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w41-ai",
+          "title": "Сравнить chunk size и top-k на одном наборе вопросов",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w41-project",
+          "title": "Зафиксировать baseline retrieval и одну проверенную доработку",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w41-soft",
+          "title": "Раз в неделю объяснить за 3-5 минут: что сделано, почему выбран вариант, какие альтернативы.",
+          "kind": "soft",
+          "label": "Техническая коммуникация",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w41-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "api-a",
+        "agent-b",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9A%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE%20%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%B0%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss1"
+    },
+    {
+      "number": 42,
+      "title": "Производительность PostgreSQL",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Повторить планы, индексы и стоимость записи",
+      "ai": "Проверить индекс векторного поиска на своих данных",
+      "deliverable": "Измерить отчёт и поиск на реалистичном объёме данных",
+      "tasks": [
+        {
+          "id": "w42-core",
+          "title": "Повторить планы, индексы и стоимость записи",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w42-ai",
+          "title": "Проверить индекс векторного поиска на своих данных",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w42-project",
+          "title": "Измерить отчёт и поиск на реалистичном объёме данных",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w42-soft",
+          "title": "Проверять корректность, границы, тесты и безопасность; описывать проблему и влияние, а не личность автора.",
+          "kind": "soft",
+          "label": "Code review и обратная связь",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w42-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "indexes",
+        "pg-plans",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9F%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20PostgreSQL%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss2"
+    },
+    {
+      "number": 43,
+      "title": "Чистый запуск проекта",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Конфигурация, миграции и health checks с нуля",
+      "ai": "Проверить отсутствие ключей и персональных данных в демо",
+      "deliverable": "Поднять Developer Assistant по README в новом окружении",
+      "tasks": [
+        {
+          "id": "w43-core",
+          "title": "Конфигурация, миграции и health checks с нуля",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w43-ai",
+          "title": "Проверить отсутствие ключей и персональных данных в демо",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w43-project",
+          "title": "Поднять Developer Assistant по README в новом окружении",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w43-soft",
+          "title": "Перед задачей записывать цель, happy path, edge cases, критерии готовности и вопросы к заказчику.",
+          "kind": "soft",
+          "label": "Работа с требованиями",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w43-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "observability",
+        "otel",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%A7%D0%B8%D1%81%D1%82%D1%8B%D0%B9%20%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D0%BA%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss3"
+    },
+    {
+      "number": 44,
+      "title": "CI как проверка релиза",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Build, tests и воспроизводимый артефакт",
+      "ai": "Добавить offline AI-regression suite в CI",
+      "deliverable": "Получить зелёный CI на чистом checkout",
+      "tasks": [
+        {
+          "id": "w44-core",
+          "title": "Build, tests и воспроизводимый артефакт",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w44-ai",
+          "title": "Добавить offline AI-regression suite в CI",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w44-project",
+          "title": "Получить зелёный CI на чистом checkout",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w44-soft",
+          "title": "Делить большую задачу на небольшие части, фиксировать допущения и заранее сообщать о блокерах.",
+          "kind": "soft",
+          "label": "Оценка и организация",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w44-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "testing",
+        "integration",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=CI%20%D0%BA%D0%B0%D0%BA%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0%20%D1%80%D0%B5%D0%BB%D0%B8%D0%B7%D0%B0%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss4"
+    },
+    {
+      "number": 45,
+      "title": "Архитектура понятным языком",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Контекст, компоненты, границы и зависимости",
+      "ai": "Описать выбор RAG и границы автономности агента",
+      "deliverable": "Нарисовать схему и написать три решения с компромиссами",
+      "tasks": [
+        {
+          "id": "w45-core",
+          "title": "Контекст, компоненты, границы и зависимости",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w45-ai",
+          "title": "Описать выбор RAG и границы автономности агента",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w45-project",
+          "title": "Нарисовать схему и написать три решения с компромиссами",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w45-soft",
+          "title": "Вести заметки: проблема, причина, варианты, решение, компромиссы; раз в месяц показывать проект.",
+          "kind": "soft",
+          "label": "Рефлексия и обучение",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w45-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "observability",
+        "otel",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0%20%D0%BF%D0%BE%D0%BD%D1%8F%D1%82%D0%BD%D1%8B%D0%BC%20%D1%8F%D0%B7%D1%8B%D0%BA%D0%BE%D0%BC%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss5"
+    },
+    {
+      "number": 46,
+      "title": "Инструкция эксплуатации",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Резервные копии, восстановление и диагностика",
+      "ai": "Описать действия при ошибках модели и инструментов",
+      "deliverable": "Написать runbook: запуск, backup, восстановление, rollback",
+      "tasks": [
+        {
+          "id": "w46-core",
+          "title": "Резервные копии, восстановление и диагностика",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w46-ai",
+          "title": "Описать действия при ошибках модели и инструментов",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w46-project",
+          "title": "Написать runbook: запуск, backup, восстановление, rollback",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w46-soft",
+          "title": "Раз в неделю объяснить за 3-5 минут: что сделано, почему выбран вариант, какие альтернативы.",
+          "kind": "soft",
+          "label": "Техническая коммуникация",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w46-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "observability",
+        "otel",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D1%8D%D0%BA%D1%81%D0%BF%D0%BB%D1%83%D0%B0%D1%82%D0%B0%D1%86%D0%B8%D0%B8%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss1"
+    },
+    {
+      "number": 47,
+      "title": "Тест релизного кандидата",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Happy path, edge cases и отказы внешних сервисов",
+      "ai": "Прогнать набор эталонных вопросов и сохранить результаты",
+      "deliverable": "Проверить release candidate по воспроизводимому чек-листу",
+      "tasks": [
+        {
+          "id": "w47-core",
+          "title": "Happy path, edge cases и отказы внешних сервисов",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w47-ai",
+          "title": "Прогнать набор эталонных вопросов и сохранить результаты",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w47-project",
+          "title": "Проверить release candidate по воспроизводимому чек-листу",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w47-soft",
+          "title": "Проверять корректность, границы, тесты и безопасность; описывать проблему и влияние, а не личность автора.",
+          "kind": "soft",
+          "label": "Code review и обратная связь",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w47-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "testing",
+        "integration",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%A2%D0%B5%D1%81%D1%82%20%D1%80%D0%B5%D0%BB%D0%B8%D0%B7%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BA%D0%B0%D0%BD%D0%B4%D0%B8%D0%B4%D0%B0%D1%82%D0%B0%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss2"
+    },
+    {
+      "number": 48,
+      "title": "Устранение главного риска",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Выбрать один риск по влиянию и вероятности",
+      "ai": "Улучшить самое слабое место по результатам оценки",
+      "deliverable": "Исправить приоритетный дефект и добавить регрессионный тест",
+      "tasks": [
+        {
+          "id": "w48-core",
+          "title": "Выбрать один риск по влиянию и вероятности",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w48-ai",
+          "title": "Улучшить самое слабое место по результатам оценки",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w48-project",
+          "title": "Исправить приоритетный дефект и добавить регрессионный тест",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w48-soft",
+          "title": "Перед задачей записывать цель, happy path, edge cases, критерии готовности и вопросы к заказчику.",
+          "kind": "soft",
+          "label": "Работа с требованиями",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w48-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "testing",
+        "integration",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%A3%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%80%D0%B8%D1%81%D0%BA%D0%B0%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss3"
+    },
+    {
+      "number": 49,
+      "title": "Подготовка демонстрации",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Сценарий на 5 минут: проблема, решение, результат",
+      "ai": "Показать источники ответа и подтверждение действия",
+      "deliverable": "Подготовить демонстрационные данные и записать черновое демо",
+      "tasks": [
+        {
+          "id": "w49-core",
+          "title": "Сценарий на 5 минут: проблема, решение, результат",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w49-ai",
+          "title": "Показать источники ответа и подтверждение действия",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w49-project",
+          "title": "Подготовить демонстрационные данные и записать черновое демо",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w49-soft",
+          "title": "Делить большую задачу на небольшие части, фиксировать допущения и заранее сообщать о блокерах.",
+          "kind": "soft",
+          "label": "Оценка и организация",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w49-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "api-a",
+        "agent-b",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0%20%D0%B4%D0%B5%D0%BC%D0%BE%D0%BD%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D0%B8%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss4"
+    },
+    {
+      "number": 50,
+      "title": "Портфолио и README",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Краткое описание, скриншоты и инструкция запуска",
+      "ai": "Указать ограничения, стоимость и результаты AI-оценки",
+      "deliverable": "Оформить репозиторий с архитектурой и измеримыми результатами",
+      "tasks": [
+        {
+          "id": "w50-core",
+          "title": "Краткое описание, скриншоты и инструкция запуска",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w50-ai",
+          "title": "Указать ограничения, стоимость и результаты AI-оценки",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w50-project",
+          "title": "Оформить репозиторий с архитектурой и измеримыми результатами",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w50-soft",
+          "title": "Вести заметки: проблема, причина, варианты, решение, компромиссы; раз в месяц показывать проект.",
+          "kind": "soft",
+          "label": "Рефлексия и обучение",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w50-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "api-a",
+        "agent-b",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE%20%D0%B8%20README%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss5"
+    },
+    {
+      "number": 51,
+      "title": "Архитектурное интервью",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Объяснить транзакции, async, тесты и границы системы",
+      "ai": "Объяснить, когда агент не нужен и как ограничены инструменты",
+      "deliverable": "Провести пробное интервью и закрыть три пробела объяснения",
+      "tasks": [
+        {
+          "id": "w51-core",
+          "title": "Объяснить транзакции, async, тесты и границы системы",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w51-ai",
+          "title": "Объяснить, когда агент не нужен и как ограничены инструменты",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w51-project",
+          "title": "Провести пробное интервью и закрыть три пробела объяснения",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w51-soft",
+          "title": "Раз в неделю объяснить за 3-5 минут: что сделано, почему выбран вариант, какие альтернативы.",
+          "kind": "soft",
+          "label": "Техническая коммуникация",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w51-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "testing",
+        "integration",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%BD%D0%BE%D0%B5%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D1%8C%D1%8E%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss1"
+    },
+    {
+      "number": 52,
+      "title": "Финиш и следующий маршрут",
+      "phase": "p9",
+      "aiPhase": "p9",
+      "topic": "Итоги года и независимая проверка ключевых сценариев",
+      "ai": "Сравнить текущие результаты с baseline качества",
+      "deliverable": "Выпустить версию 1.0, записать демо и выбрать следующую цель",
+      "tasks": [
+        {
+          "id": "w52-core",
+          "title": "Итоги года и независимая проверка ключевых сценариев",
+          "kind": "core",
+          "label": "Основной трек",
+          "minutes": 90,
+          "phase": "p9"
+        },
+        {
+          "id": "w52-ai",
+          "title": "Сравнить текущие результаты с baseline качества",
+          "kind": "ai",
+          "label": "AI-практика",
+          "minutes": 45,
+          "phase": "p9"
+        },
+        {
+          "id": "w52-project",
+          "title": "Выпустить версию 1.0, записать демо и выбрать следующую цель",
+          "kind": "project",
+          "label": "Developer Assistant",
+          "minutes": 120,
+          "phase": "p9"
+        },
+        {
+          "id": "w52-soft",
+          "title": "Проверять корректность, границы, тесты и безопасность; описывать проблему и влияние, а не личность автора.",
+          "kind": "soft",
+          "label": "Code review и обратная связь",
+          "minutes": 30,
+          "phase": "p9"
+        },
+        {
+          "id": "w52-review",
+          "title": "Записать: что получилось, где застрял и один следующий шаг.",
+          "kind": "review",
+          "label": "Недельный обзор",
+          "minutes": 45,
+          "phase": "p9"
+        }
+      ],
+      "videos": [
+        "testing",
+        "integration",
+        "agent-a"
+      ],
+      "searchURL": "https://www.youtube.com/results?search_query=%D0%A4%D0%B8%D0%BD%D0%B8%D1%88%20%D0%B8%20%D1%81%D0%BB%D0%B5%D0%B4%D1%83%D1%8E%D1%89%D0%B8%D0%B9%20%D0%BC%D0%B0%D1%80%D1%88%D1%80%D1%83%D1%82%20C%23%20PostgreSQL%20.NET",
+      "softSkill": "ss2"
+    }
+  ],
+  "videos": [
+    {
+      "id": "cs-ru",
+      "title": "C# с нуля — полный курс, часть 1",
+      "url": "https://www.youtube.com/watch?v=SFIxnqjI5_c",
+      "channel": "ITVDN",
+      "language": "RU",
+      "category": "C# / .NET",
+      "purpose": "Базовые понятия языка; выбирай раздел по теме недели.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "cs-en",
+      "title": "C# Tutorial — Full Course for Beginners",
+      "url": "https://www.youtube.com/watch?v=GhQdlIFylQ8",
+      "channel": "freeCodeCamp.org",
+      "language": "EN",
+      "category": "C# / .NET",
+      "purpose": "Базовый курс 2018 года: синтаксис и ООП; современные API сверяй с Microsoft Learn.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "async",
+      "title": "Async: дополнительный разбор",
+      "url": "https://www.youtube.com/watch?v=gW19LaAYczI",
+      "channel": "Nick Chapsas",
+      "language": "EN",
+      "category": "C# / .NET",
+      "purpose": "Ссылка из исходной дорожной карты; дополнительный материал по async.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Сохранено из исходного JSON; воспроизведение не проверялось"
+    },
+    {
+      "id": "api-a",
+      "title": ".NET 8 Web API & Entity Framework — CRUD",
+      "url": "https://www.youtube.com/watch?v=b8fFRX0T38M",
+      "channel": "Patrick God",
+      "language": "EN",
+      "category": "ASP.NET Core",
+      "purpose": "Учебный пример использует SQL Server; для проекта используй Npgsql/PostgreSQL. API сверяй с текущей документацией.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "api-b",
+      "title": "Web API Development in .NET 8 in 2 Hours",
+      "url": "https://www.youtube.com/watch?v=SsnpkRNhpmk",
+      "channel": "Web API · учебный курс",
+      "language": "EN",
+      "category": "ASP.NET Core",
+      "purpose": "Альтернативный разбор REST API; выбирай нужный фрагмент курса.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "pg-ru",
+      "title": "SQL для начинающих: введение в PostgreSQL",
+      "url": "https://www.youtube.com/watch?v=HVQNxdI6fqY",
+      "channel": "EngineerSpock",
+      "language": "RU",
+      "category": "PostgreSQL",
+      "purpose": "Введение в схемы и связи; это бесплатная демо-часть курса.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "pg-en",
+      "title": "PostgreSQL Tutorial for Beginners",
+      "url": "https://www.youtube.com/watch?v=SpfIwlAYaKk",
+      "channel": "freeCodeCamp.org",
+      "language": "EN",
+      "category": "PostgreSQL",
+      "purpose": "SELECT, JOIN, агрегаты; используй как базу и сверяй продвинутые темы с документацией.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "docker-a",
+      "title": "Docker Tutorial for Beginners — Full Course",
+      "url": "https://www.youtube.com/watch?v=3c-iBn73dDE",
+      "channel": "TechWorld with Nana",
+      "language": "EN",
+      "category": "Инженерия",
+      "purpose": "Разделы Dockerfile, Compose и volumes. Курс 2020 года: команды сверяй с документацией.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "docker-b",
+      "title": "Docker Crash Course for Absolute Beginners",
+      "url": "https://www.youtube.com/watch?v=pg19Z8LL06w",
+      "channel": "TechWorld with Nana",
+      "language": "EN",
+      "category": "Инженерия",
+      "purpose": "Короткая альтернатива большому курсу по Docker.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "ai-base",
+      "title": "Generative AI for Beginners — 18 уроков",
+      "url": "https://www.youtube.com/watch?v=k7HaeJs-N-o",
+      "channel": "Microsoft Developer",
+      "language": "EN",
+      "category": "AI",
+      "purpose": "Концепции LLM, function calling, RAG и безопасность; код в курсе не только на C#.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "ai-net",
+      "title": "Introduction: Generative AI with .NET",
+      "url": "https://www.youtube.com/watch?v=vISLS8aY0RU",
+      "channel": "dotnet",
+      "language": "EN",
+      "category": "AI",
+      "purpose": "Вводное видео серии; актуальный код смотри в курсе Microsoft из исходных ресурсов.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "rag",
+      "title": "RAG with AI Search and .NET",
+      "url": "https://www.youtube.com/watch?v=EfQ53fgEhmY",
+      "channel": "dotnet",
+      "language": "EN",
+      "category": "AI",
+      "purpose": "Объясняет паттерн RAG на AI Search; хранилище в учебном проекте — PostgreSQL / pgvector.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "agent-a",
+      "title": "Microsoft Agent Framework: Getting Started in C#",
+      "url": "https://www.youtube.com/watch?v=HHy0-sXlmUY",
+      "channel": "AI in C# · Rasmus Wulff Jensen",
+      "language": "EN",
+      "category": "AI",
+      "purpose": "Chat, tools, structured output и RAG; разделы по теме недели.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "agent-b",
+      "title": "Build Practical AI Agents with Agent Framework",
+      "url": "https://www.youtube.com/watch?v=JngWQLylFX8",
+      "channel": "Microsoft Reactor",
+      "language": "EN",
+      "category": "AI",
+      "purpose": "Контекст, инструменты, approvals, multi-agent и эксплуатация.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "testing",
+      "title": "30 minutes of Testing in .NET",
+      "url": "https://www.youtube.com/watch?v=DK5MST9hqbM",
+      "channel": "dotnet",
+      "language": "EN",
+      "category": "Инженерия",
+      "purpose": "Обзор unit, integration, mutation и regression testing; API .NET 6 сверяй с текущей документацией.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "integration",
+      "title": "Getting Started with Integration Testing in .NET",
+      "url": "https://www.youtube.com/watch?v=vnRVbwka86U",
+      "channel": "Nick Chapsas",
+      "language": "EN",
+      "category": "Инженерия",
+      "purpose": "Практический разбор integration tests с .NET Aspire; адаптируй окружение под свой API.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "observability",
+      "title": "Beyond Monitoring: Observability in .NET with OpenTelemetry",
+      "url": "https://www.youtube.com/watch?v=7OahLUp8Yrk",
+      "channel": "dotnet",
+      "language": "EN",
+      "category": "Инженерия",
+      "purpose": "Логи, метрики и traces; как диагностировать проблемы производительности.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "otel",
+      "title": "Getting Started with OpenTelemetry in .NET",
+      "url": "https://www.youtube.com/watch?v=4xMIROBECRw",
+      "channel": "dotnet",
+      "language": "EN",
+      "category": "Инженерия",
+      "purpose": "Инструментирование и exporters на примере Blazor / Aspire; перенеси подход на backend.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "indexes",
+      "title": "Database Indexing Explained with PostgreSQL",
+      "url": "https://www.youtube.com/watch?v=-qNSXK7s7_w",
+      "channel": "Hussein Nasser",
+      "language": "EN",
+      "category": "PostgreSQL",
+      "purpose": "Индекс на практическом запросе: измерение эффекта и компромиссы. Видео 2020 года.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    },
+    {
+      "id": "pg-plans",
+      "title": "PostgreSQL Indexes, EXPLAIN, ANALYZE",
+      "url": "https://www.youtube.com/watch?v=4HZl-PkFTbA",
+      "channel": "EngineerSpock",
+      "language": "EN",
+      "category": "PostgreSQL",
+      "purpose": "Планы запросов и виды индексов; бесплатная часть курса 2022 года.",
+      "type": "youtube",
+      "checkedOn": "2026-10-18",
+      "verification": "Найдено в веб-поиске; воспроизведение не проверялось"
+    }
+  ],
+  "weeklyPlanNote": "52 недели — авторская детализация исходных этапов PDF/JSON. В исходниках нет 52 отдельных недель. Параллельные темы сохранены; видео — варианты, не обязательство смотреть всё.",
+  "videoNote": "Для точной темы есть дополнительный поиск на YouTube и официальные ресурсы этапа. Видео могут использовать более старые API; сверяй код с документацией."
+}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf9f6">
+  <meta name="description" content="Личный план развития C#/.NET, PostgreSQL и AI на 52 недели. Учись, практикуйся и отслеживай прогресс.">
+  <title>Dev Growth — твой путь в разработке</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <script defer src="assets/vendor/sql-wasm.js"></script>
+  <script type="module" src="assets/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">К содержимому</a>
+  <aside class="sidebar">
+    <a class="brand" href="#today"><span class="brand-icon">d<span>g</span></span><span>dev growth<small>ЛИЧНЫЙ ПЛАН РАЗВИТИЯ</small></span></a>
+    <div class="workspace-label">ТВОЁ ПРОСТРАНСТВО</div>
+    <nav aria-label="Основная навигация">
+      <a href="#today" data-nav="today"><span>◉</span> Моя неделя</a>
+      <a href="#roadmap" data-nav="roadmap"><span>⌘</span> Дорожная карта <small>52</small></a>
+      <a href="#resources" data-nav="resources"><span>▤</span> Библиотека</a>
+      <a href="#project" data-nav="project"><span>⌁</span> Мой проект</a>
+      <a href="#schedule" data-nav="schedule"><span>▦</span> Расписание</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="journey"><span class="eyebrow">МАЛЕНЬКИЕ ШАГИ. БОЛЬШОЙ ПУТЬ.</span><p>Сегодня чуть лучше,<br>чем вчера.</p><div class="mini-path"><i></i><i></i><i></i><i></i><i></i></div></div>
+      <a href="#settings" class="settings-link" data-nav="settings"><span>⚙</span> Настройки и данные</a>
+      <div class="local-state"><i></i><span id="storage-status" role="status">Открываем SQLite…</span></div>
+    </div>
+  </aside>
+  <div class="shell">
+    <header class="topbar"><div><span class="breadcrumb">Моё обучение</span><span class="crumb-divider">/</span><span id="page-label">Моя неделя</span></div><div class="top-actions"><span class="date" id="today-date"></span><button id="theme-toggle" class="icon-button" aria-label="Переключить тему">◐</button><a class="avatar" href="#settings" aria-label="Настройки">Я</a></div></header>
+    <main id="main" tabindex="-1"><div class="loading"><div class="spinner"></div><h1>Собираем твой маршрут</h1><p>Загружаем программу и локальную базу данных.</p></div></main>
+    <footer>C# / .NET <span>·</span> PostgreSQL <span>·</span> AI <span class="footer-note">В своём темпе. С фокусом на практике.</span></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <noscript>Для работы трекера включите JavaScript.</noscript>
+</body>
+</html>
