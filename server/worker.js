@@ -113,7 +113,7 @@ async function handle(request,env,now) {
   let file=PUBLIC.get(path);
   if(!file&&(path==='/'||path==='/index.html'))file='/index.html';
   if(!file&&/^\/assets\/(?:[a-zA-Z0-9_-]+\.(?:js|css|svg)|vendor\/(?:sql-wasm\.js|sql-wasm\.wasm|SQLJS-LICENSE\.txt))$/.test(path))file=path;
-  if(!file&&/^\/data\/(?:roadmap\.json|guide\.json|lessons\.json|beginner-guide\.md|progress\.sqlite)$/.test(path))file=path;
+  if(!file&&/^\/data\/(?:roadmap\.json|guide\.json|tools\.json|lessons\.json|beginner-guide\.md|progress\.sqlite)$/.test(path))file=path;
   if(!file&&/^\/data\/lessons\/week-(?:0[1-9]|[1-4][0-9]|5[0-2])\.pdf$/.test(path))file=path;
   if(!file)throw error(404,'Не найдено');
   const assetURL=new URL(file,url); // Drop user query parameters on internal asset lookup.

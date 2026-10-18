@@ -4,6 +4,7 @@ import {resolve} from 'node:path';
 const root=resolve(import.meta.dirname,'..');
 for(const folder of ['server','assets'])for(const file of readdirSync(resolve(root,folder)))if(file.endsWith('.js'))execFileSync(process.execPath,['--check',resolve(root,folder,file)]);
 for(const file of ['index.html','login.html','data/progress.sqlite','assets/vendor/sql-wasm.wasm'])if(!existsSync(resolve(root,file)))throw new Error('Missing '+file);
+JSON.parse(readFileSync(resolve(root,'data/tools.json'),'utf8'));
 const lessons=JSON.parse(readFileSync(resolve(root,'data/lessons.json'),'utf8'));
 if(lessons.weeks.length!==52)throw new Error('Expected 52 authored lesson manuals');
 for(const week of lessons.weeks){
