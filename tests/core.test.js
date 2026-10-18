@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {progress,weekNumber,weekDate,learningStatus,level,escapeHtml,safeURL,calendarText} from '../assets/core.js';
-import {pendingReminder} from '../scripts/remind.js';
+import {pendingReminder,reminderSiteURL} from '../scripts/remind.js';
 const content=JSON.parse(readFileSync(new URL('../data/roadmap.json',import.meta.url)));
 test('progress: empty, partial, complete and unrelated completions',()=>{
   assert.deepEqual(progress([],new Set()),{done:0,total:0,percent:0});
@@ -66,4 +66,10 @@ test('MAX scheduled reminder respects Moscow timezone, start, end and delay wind
   assert.equal(pendingReminder(c,new Date('2026-10-12T18:50:00Z')),null);
   assert.equal(pendingReminder(c,new Date('2027-10-25T18:50:00Z')),null);
   assert.ok(pendingReminder(c,new Date('2026-10-20T07:00:00Z'),true));
+});
+test('reminder URLs follow a repository rename and preserve an explicit custom URL',()=>{
+  assert.equal(reminderSiteURL('auto','eremeev-sa/dev-growth'),'https://eremeev-sa.github.io/dev-growth/');
+  assert.equal(reminderSiteURL('auto','eremeev-sa/my_learn_site'),'https://eremeev-sa.github.io/my_learn_site/');
+  assert.equal(reminderSiteURL('https://example.com/','eremeev-sa/dev-growth'),'https://example.com/');
+  assert.throws(()=>reminderSiteURL('auto',undefined),/siteUrl/);
 });

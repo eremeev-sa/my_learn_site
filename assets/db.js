@@ -35,6 +35,25 @@ export class Store {
     this.queue=operation.catch(()=>{}); return operation;
   }
   set(key,value) { validateSetting(key,value);return this.mutate(()=>this.db.run('INSERT OR REPLACE INTO settings VALUES (?,?)',[key,JSON.stringify(value)])); }
+  user(username) {
+    const result=this.db.exec('SELECT username,salt,password_hash,iterations,revision FROM users WHERE username=?',[username]);
+    if(!result.length)return null;
+    return Object.fromEntries(result[0].columns.map((key,i)=>[key,result[0].values[0][i]]));
+  }
+  initializeUsers(){
+    return this.mutate(()=>this.db.run('CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, salt TEXT NOT NULL, password_hash TEXT NOT NULL, iterations INTEGER NOT NULL, revision INTEGER NOT NULL)'));
+  }
+  localUser(){
+    const row=this.db.exec('SELECT username FROM users LIMIT 1')[0]?.values[0];
+    return row?this.user(row[0]):null;
+  }
+  ensureUser(account) {
+    if(!account || typeof account.username!=='string' || !/^[a-f0-9]{32}$/.test(account.salt) || !/^[a-f0-9]{64}$/.test(account.password_hash) || !Number.isInteger(account.iterations) || account.iterations<100000 || account.iterations>2000000 || !Number.isInteger(account.revision))throw new Error('Не удалось загрузить учётную запись');
+    return this.mutate(()=>{
+      this.db.run('CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, salt TEXT NOT NULL, password_hash TEXT NOT NULL, iterations INTEGER NOT NULL, revision INTEGER NOT NULL)');
+      this.db.run('INSERT OR REPLACE INTO users VALUES (?,?,?,?,?)',[account.username,account.salt,account.password_hash,account.iterations,account.revision]);
+    });
+  }
   applyPlanStart(date,version) {
     validateSetting('startDate',date);validateSetting('planStartVersion',version);
     if(this.get('planStartVersion',null)===version)return Promise.resolve(false);
