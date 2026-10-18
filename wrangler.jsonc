@@ -17,6 +17,7 @@
     {
       "binding": "DB",
       "database_name": "dev-growth-db",
+      "database_id": "5fe56632-5cc7-4d35-a76b-306a3717ee5d",
       "migrations_dir": "migrations"
     }
   ]
